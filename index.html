@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Cloudsong</title>
+
+  
+  <link rel="stylesheet" href="stylesheets/app.css">
+  
+
+  <script src="javascripts/vendor/custom.modernizr.js"></script>
+
+</head>
+<body>
+  <div class="row">
+    <div class="large-8 columns">
+      <h1>Listen to the songs of the Internet</h1>
+      <h2>Tap into a community of musical creativity and freedom</h2>
+
+      <a href="#create_user" class="large button join-button">Join Cloudsong</a>
+      <a href="#create_user" class="large button">Login</a>      
+    </div>
+  </div>
+	
+
+  <div class="row">
+    <div class="artists">
+    </div>
+  </div>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+  <script>
+  document.write('<script src=' +
+  ('__proto__' in {} ? 'javascripts/vendor/zepto' : 'javascripts/vendor/jquery') +
+  '.js><\/script>')
+  </script>
+  
+  <script src="javascripts/foundation/foundation.js"></script>
+	
+	<script src="javascripts/foundation/foundation.abide.js"></script>
+	
+	<script src="javascripts/foundation/foundation.alerts.js"></script>
+	
+	<script src="javascripts/foundation/foundation.clearing.js"></script>
+	
+	<script src="javascripts/foundation/foundation.cookie.js"></script>
+	
+	<script src="javascripts/foundation/foundation.dropdown.js"></script>
+	
+	<script src="javascripts/foundation/foundation.forms.js"></script>
+	
+	<script src="javascripts/foundation/foundation.interchange.js"></script>
+	
+	<script src="javascripts/foundation/foundation.joyride.js"></script>
+	
+	<script src="javascripts/foundation/foundation.magellan.js"></script>
+	
+	<script src="javascripts/foundation/foundation.orbit.js"></script>
+	
+	<script src="javascripts/foundation/foundation.placeholder.js"></script>
+	
+	<script src="javascripts/foundation/foundation.reveal.js"></script>
+	
+	<script src="javascripts/foundation/foundation.section.js"></script>
+	
+	<script src="javascripts/foundation/foundation.tooltips.js"></script>
+	
+	<script src="javascripts/foundation/foundation.topbar.js"></script>
+	
+  
+  <script>
+    $(document).foundation();
+  </script>
+
+
+
+
+  <!-- backbone begins -->
+
+
+  <script>
+    var Artists = Backbone.Collection.extend({
+      url: '/artists'
+    });
+
+    var ArtistList = Backbone.View.extend({
+      el:'.artists',
+      render: function() {
+        this.$el.html("!CONTENT SHOULD SHOW HERE!");
+      }
+    });
+
+    var Router = Backbone.Router.extend({
+      routes:{
+        '': 'home'
+      }
+    });
+
+    var artistList = new ArtistList();
+
+    var router = new Router();
+    router.on('route:home', function() {
+      artistList.render();
+    });
+
+    Backbone.history.start();
+  </script>
+
+
+</body>
+</html>
