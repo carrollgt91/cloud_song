@@ -16,20 +16,10 @@
 
 </head>
 <body>
-  <div class="row">
-    <div class="large-8 columns">
-      <h1>Listen to the songs of the Internet</h1>
-      <h2>Tap into a community of musical creativity and freedom</h2>
-
-      <a href="#create_user" class="large button join-button">Join Cloudsong</a>
-      <a href="#create_user" class="large button">Login</a>      
-    </div>
-  </div>
+  
 	
 
-  <div class="row">
-    <div class="artists">
-    </div>
+  <div class="page">
   </div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
@@ -78,34 +68,158 @@
   </script>
 
 
-
-
   <!-- backbone begins -->
 
+  <script type="text/template" id="landing-template">
+    <div class="row">
+      <div class="large-8 columns">
+        <h1>Listen to the songs of the Internet</h1>
+        <h2>Tap into a community of musical creativity and freedom</h2>
+
+        <a href="#/signup" class="large button join-button">Join Cloudsong</a>
+        <a href="#/session/new" class="large button">Login</a>      
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="artist-list-template">
+
+    <% _.each(artists, function(artist) { %>
+    <div class="artist">
+      <h4 class="name">
+        <%= artist.get('name') %>
+      </h4>
+      <span class="location">
+        <%= artist.get('location') %>
+      </span>
+    </div>
+
+    <% }); %>
+  </script>
+
+  <script type="text/template" id="signup-form-template">
+    <form action="/artist/new" class="signup-form large-12 columns">
+      <fieldset>
+          <div class="row">
+            <div class="large-6 columns">
+              <input type="text" name="name" placeholder="Name"/>
+            </div>
+            <div class="large-6 columns">
+              <input type="text" name="location" placeholder="Location"/>          
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <input type="text" name="tagline" placeholder="Tagline"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-6 columns">
+            <input type="email" name="contact" placeholder="Email"/>
+          </div>
+        </div>
+        <button type="submit" class="small"> Sign Up</button>
+      </fieldset>
+    </form>
+  </script>
 
   <script>
+
+    $.fn.serializeObject = function() {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+          if (o[this.name] !== undefined) {
+              if (!o[this.name].push) {
+                  o[this.name] = [o[this.name]];
+              }
+              o[this.name].push(this.value || '');
+          } else {
+              o[this.name] = this.value || '';
+          }
+      });
+      return o;
+    };
+
+    $.ajaxPrefilter( function( options, originalOptions, jqHXR) {
+      options.url = "api/index.php" + options.url;
+    });
+
     var Artists = Backbone.Collection.extend({
       url: '/artists'
     });
 
+    var Artist = Backbone.Model.extend({
+      urlRoot: '/artists'
+    });
+
     var ArtistList = Backbone.View.extend({
-      el:'.artists',
+      el:'.page',
       render: function() {
-        this.$el.html("!CONTENT SHOULD SHOW HERE!");
+        var that = this;
+        var artists = new Artists();
+        artists.fetch( 
+        {
+          success: function(artists) {
+            var template = _.template($('#artist-list-template').html(), {artists: artists.models });
+
+            that.$el.html(template);
+          }
+        })
       }
     });
 
+    var Landing = Backbone.View.extend({
+      el:'.page',
+      render: function() {    
+        var template = _.template($('#landing-template').html(), {});
+        this.$el.html(template);
+      }
+    });
+
+    var SignupForm = Backbone.View.extend( {
+      el:'.page',
+      render: function() {
+        var template = _.template($("#signup-form-template").html(), {});
+        this.$el.html(template);
+      },
+      events: {
+        'submit .signup-form': 'saveArtist'
+      },
+
+      saveArtist: function(ev) {
+        var artistDetails = $(ev.currentTarget).serializeObject();
+        var artist = new Artist();
+        artist.save(artistDetails, {
+          success: function(artist) {
+            router.navigate('', {trigger: true});
+          }
+        })
+        return false;
+      }
+    })
+
     var Router = Backbone.Router.extend({
       routes:{
-        '': 'home'
+        '': 'home',
+        'signup': 'newArtist'
       }
     });
 
     var artistList = new ArtistList();
+    var signupForm = new SignupForm();
+    var landing = new Landing();
 
     var router = new Router();
+
     router.on('route:home', function() {
-      artistList.render();
+      landing.render();
+    });
+
+    router.on('route:newArtist', function() {
+      signupForm.render();
     });
 
     Backbone.history.start();
