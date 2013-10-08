@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 require 'vendor/slim/slim/Slim/LogWriter.php';
 require 'NotORM.php';
 
-$pdo = new PDO("mysql:unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock;dbname=cloudsong", 'root', 'root');
+$pdo = new PDO("mysql;dbname=cloudsong", 'root', 'rootPassword');
 $db = new NotORM($pdo);
 
 $app = new \Slim\Slim(array (

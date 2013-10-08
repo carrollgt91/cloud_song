@@ -14,6 +14,15 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
+    "\/api\/vendor\/slim\/slim\/tests\/MiddlewareTest.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/MiddlewareTest.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/sass\/_settings.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -26,21 +35,23 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/api\/vendor\/slim\/slim\/tests\/MiddlewareTest.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+    "\/javascripts\/foundation\/foundation.forms.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/MiddlewareTest.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
+      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms-ck.js",
+      "fileType" : 64
     },
-    "\/api\/vendor\/slim\/slim\/tests\/LogTest.php" : {
+    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/ContentTypes.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/LogTest.php",
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/ContentTypes.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -55,15 +66,6 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/composer\/autoload_classmap.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_classmap.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -72,17 +74,6 @@
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
-    },
-    "\/javascripts\/foundation\/foundation.alerts.js" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.alerts.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.alerts-ck.js",
-      "fileType" : 64
     },
     "\/javascripts\/foundation\/foundation.placeholder.js" : {
       "ignoreWasSetByUser" : 1,
@@ -95,12 +86,12 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.placeholder-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/ContentTypes.php" : {
+    "\/api\/vendor\/composer\/autoload_real.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/ContentTypes.php",
+      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_real.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -115,24 +106,35 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.tooltips-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/composer\/autoload_real.php" : {
+    "\/javascripts\/libs\/require.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_real.php",
+      "inputAbbreviatedPath" : "\/javascripts\/libs\/require.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/javascripts\/libs\/require-ck.js",
+      "fileType" : 64
+    },
+    "\/api\/vendor\/slim\/slim\/tests\/LogTest.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/LogTest.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/javascripts\/foundation\/foundation.forms.js" : {
+    "\/javascripts\/foundation\/foundation.alerts.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms.js",
+      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.alerts.js",
       "outputStyle" : 1,
       "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms-ck.js",
+      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.alerts-ck.js",
       "fileType" : 64
     },
     "\/api\/vendor\/slim\/slim\/tests\/Http\/UtilTest.php" : {
@@ -211,21 +213,21 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/api\/index.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/index.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/api\/vendor\/slim\/slim\/Slim\/Slim.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Slim.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/api\/index.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/index.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -253,6 +255,15 @@
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Http\/ResponseTest.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/api\/vendor\/composer\/autoload_classmap.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_classmap.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -294,24 +305,6 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.reveal-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/composer\/ClassLoader.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/ClassLoader.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
-    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/MethodOverride.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -321,12 +314,30 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/api\/vendor\/composer\/ClassLoader.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/ClassLoader.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/api\/vendor\/slim\/slim\/tests\/ViewTest.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/ViewTest.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/api\/vendor\/slim\/slim\/Slim\/Exception\/Pass.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Exception\/Pass.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -348,12 +359,12 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/api\/vendor\/slim\/slim\/Slim\/Exception\/Pass.php" : {
+    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Exception\/Pass.php",
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -525,21 +536,21 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Headers.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Headers.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/api\/vendor\/slim\/slim\/tests\/Middleware\/SessionCookieTest.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Middleware\/SessionCookieTest.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Headers.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Headers.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
