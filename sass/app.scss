@@ -54,3 +54,36 @@
 // @import "foundation/components/tooltips";
 // @import "foundation/components/dropdown";
 
+
+$blue: #3bbdee;
+
+header {
+  .nav-bar {
+    
+  }
+  .logo {
+    margin: 0 0 0 60px;
+    height: 50px;
+  }
+
+  .right {
+    margin-right:60px;
+  }
+
+  li>a:hover {
+    color: $blue;
+  }
+}
+
+
+.button {
+  background-color: $blue;
+}
+
+.button:hover {
+  background-color: $blue - #333;
+}
+
+.centered {
+  text-align: center;
+}
