@@ -6,7 +6,7 @@
   Foundation.libs.abide = {
     name : 'abide',
 
-    version : '4.3.2',
+    version : '4.3.0',
 
     settings : {
       live_validate : true,
@@ -92,11 +92,11 @@
           validation_count = validations.length,
           form = $(els[0]).closest('form');
 
-      for (var i=0; i < validation_count; i++) {
-        if (!validations[i] && /submit/.test(e.type)) {
-          if (this.settings.focus_on_invalid) els[i].focus();
+      while (validation_count--) {
+        if (!validations[validation_count] && /submit/.test(e.type)) {
+          if (this.settings.focus_on_invalid) els[validation_count].focus();
           form.trigger('invalid');
-          $(els[i]).closest('form').attr('data-invalid', '');
+          $(els[validation_count]).closest('form').attr('data-invalid', '');
           return false;
         }
       }

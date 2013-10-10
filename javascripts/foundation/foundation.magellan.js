@@ -6,7 +6,7 @@
   Foundation.libs.magellan = {
     name : 'magellan',
 
-    version : '4.3.2',
+    version : '4.2.2',
 
     settings : {
       activeClass: 'active',
@@ -120,7 +120,7 @@
     },
 
     set_threshold : function () {
-      if (typeof this.settings.threshold !== 'number') {
+      if (!this.settings.threshold) {
         this.settings.threshold = (this.fixed_magellan.length > 0) ? 
           this.outerHeight(this.fixed_magellan, true) : 0;
       }
@@ -128,7 +128,6 @@
 
     off : function () {
       $(this.scope).off('.fndtn.magellan');
-      $(window).off('.fndtn.magellan');
     },
 
     reflow : function () {}
