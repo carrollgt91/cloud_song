@@ -1,5 +1,5 @@
-App.Templates['sessions/login'] = _.templates('\
-<form action="/sessions/new" class="login-form large-12 columns">\
+App.Templates['sessions/login'] = _.template('\
+<form action="login" class="login-form large-12 columns">\
   <fieldset>\
     <div class="row">\
       <div class="large-8 columns">\

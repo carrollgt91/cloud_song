@@ -99,6 +99,15 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/api\/vendor\/slim\/slim\/tests\/Middleware\/ContentTypesTest.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Middleware\/ContentTypesTest.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/api\/vendor\/composer\/ClassLoader.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -108,14 +117,16 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/api\/vendor\/slim\/slim\/tests\/Middleware\/ContentTypesTest.php" : {
+    "\/templates\/sessions\/login-ck.js" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Middleware\/ContentTypesTest.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
+      "inputAbbreviatedPath" : "\/templates\/sessions\/login-ck.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/templates\/sessions\/login-ck-ck.js",
+      "fileType" : 64
     },
     "\/api\/NotORM\/Structure.php" : {
       "ignoreWasSetByUser" : 0,
@@ -255,6 +266,15 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.interchange-ck.js",
       "fileType" : 64
     },
+    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/javascripts\/foundation\/foundation.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -265,15 +285,6 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation-ck.js",
       "fileType" : 64
-    },
-    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/api\/vendor\/slim\/slim\/Slim\/Http\/Request.php" : {
       "ignoreWasSetByUser" : 0,
@@ -314,14 +325,14 @@
       "fileType" : 4,
       "debugStyle" : 0
     },
-    "\/index copy.html" : {
+    "\/stylesheets\/settings.css" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/index copy.html",
+      "inputAbbreviatedPath" : "\/stylesheets\/settings.css",
       "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
+      "fileType" : 16
     },
     "\/javascripts\/vendor\/custom.modernizr.js" : {
       "ignoreWasSetByUser" : 1,
@@ -342,15 +353,6 @@
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/SlimTest.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
-    },
-    "\/stylesheets\/settings.css" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/stylesheets\/settings.css",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 16
     },
     "\/api\/vendor\/slim\/slim\/tests\/MiddlewareTest.php" : {
       "ignoreWasSetByUser" : 0,
@@ -531,6 +533,15 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/api\/vendor\/slim\/slim\/Slim\/Route.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Route.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/api\/vendor\/slim\/slim\/tests\/templates\/test.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -550,15 +561,6 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/javascripts\/templates-ck.js",
       "fileType" : 64
-    },
-    "\/api\/vendor\/slim\/slim\/Slim\/Route.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Route.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/api\/vendor\/slim\/slim\/Slim\/Http\/Util.php" : {
       "ignoreWasSetByUser" : 0,
@@ -598,7 +600,7 @@
     },
     "\/templates\/sessions\/login.js" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/templates\/sessions\/login.js",
@@ -648,6 +650,17 @@
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Middleware\/FlashTest.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
+    },
+    "\/templates\/application\/nav.js" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/templates\/application\/nav.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/templates\/application\/nav-ck.js",
+      "fileType" : 64
     },
     "\/api\/NotORM\/Row.php" : {
       "ignoreWasSetByUser" : 0,
@@ -798,6 +811,15 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/api\/vendor\/composer\/autoload_namespaces.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_namespaces.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/javascripts\/foundation\/foundation.alerts.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -808,15 +830,6 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.alerts-ck.js",
       "fileType" : 64
-    },
-    "\/api\/vendor\/composer\/autoload_namespaces.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_namespaces.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/api\/vendor\/slim\/slim\/Slim\/LogWriter.php" : {
       "ignoreWasSetByUser" : 0,

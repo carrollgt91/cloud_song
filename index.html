@@ -21,18 +21,13 @@
         <nav class="top-bar">
           <ul class="title-area">
             <li class="name">
-              <img src="assets/horizontal-logo.svg" alt="logo" class="logo">
+              <a href="#"><img src="assets/horizontal-logo.svg" alt="logo" class="logo"></a>
             </li>
               <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
           </ul>
             
           <section class="top-bar-section">
-            <ul class="right">
-              <li><a href="#">Home</a></li>
-              <li><a href="#/explore">Explore</a></li>
-              <li><a href="#/signup">Sign Up</a></li>
-              <li><a href="#/about">About</a></li>
-            </ul>
+
           </section>
         </nav>
       </div>
@@ -142,8 +137,6 @@
       </div>
     </div>
   </script>
-
-  <script src="javascripts/app.js"></script>
 
   <script type="text/template" id="artist-list-template">
     <div class="row">
@@ -286,7 +279,7 @@
     var SignupForm = Backbone.View.extend( {
       el:'.page',
       render: function() {
-        var template = _.template($("#signup-form-template").html(), {});
+        var template = App.Templates['artists/signup-form'];
         this.$el.html(template);
       },
       events: {
@@ -308,7 +301,7 @@
     var LoginForm = Backbone.View.extend( {
       el:'.page',
       render: function() {
-        var template = _.template($("#login-form-template").html(), {});
+        var template = App.Templates['sessions/login'](App.currentUser);
         this.$el.html(template);
       },
       events: {
@@ -317,11 +310,48 @@
 
       signInArtist: function(ev) {
         var loginDetails = $(ev.currentTarget).serializeObject();
-        //create a session here
+        $.ajax({
+          url:'/login',
+          type:'POST',
+          dataType:'json',
+          data: loginDetails,
+          success:function(data) {
+            console.log(data);
+            App.currentArtist.set(data);
+            nav.render();
+            router.navigate('', {trigger: true});
+          }
+        });
         return false;
       }
     })
+    
+    var Nav = Backbone.View.extend({
+      el: $('.top-bar-section'),
 
+      initialize: function() {
+        this.listenTo(App.currentArtist, "change", this.render);
+      },
+      events: {
+        'click .logout' : 'logout'
+      },
+      render : function() {
+        var template = App.Templates['application/nav'];
+        this.$el.html(template);
+      },
+
+      logout: function() {
+        console.log("try8in");
+        $.ajax({
+          url:'/logout',
+          type:'GET',
+          success:function() {
+            App.currentArtist.clear()
+            router.navigate('', {trigger: true});
+          }
+        });
+      }
+    })
 
     var Router = Backbone.Router.extend({
       routes:{
@@ -338,6 +368,7 @@
     var signupForm = new SignupForm();
     var landing = new Landing();
     var about = new About();
+    var nav = new Nav();
 
     var router = new Router();
 
@@ -356,9 +387,12 @@
     router.on('route:login', function() {
       loginForm.render();
     });
-    Backbone.history.start();
 
-    console.log(App.Templates);
+    isSignedIn();
+    nav.render();
+
+    Backbone.history.start();
+    
   </script>
 
 
