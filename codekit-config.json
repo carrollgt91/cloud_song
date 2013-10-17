@@ -266,15 +266,6 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.interchange-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/javascripts\/foundation\/foundation.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -285,6 +276,15 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation-ck.js",
       "fileType" : 64
+    },
+    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/SessionCookie.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/api\/vendor\/slim\/slim\/Slim\/Http\/Request.php" : {
       "ignoreWasSetByUser" : 0,
@@ -811,15 +811,6 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/api\/vendor\/composer\/autoload_namespaces.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_namespaces.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/javascripts\/foundation\/foundation.alerts.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -830,6 +821,15 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.alerts-ck.js",
       "fileType" : 64
+    },
+    "\/api\/vendor\/composer\/autoload_namespaces.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/composer\/autoload_namespaces.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/api\/vendor\/slim\/slim\/Slim\/LogWriter.php" : {
       "ignoreWasSetByUser" : 0,

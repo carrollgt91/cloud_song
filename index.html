@@ -346,7 +346,7 @@
           url:'/logout',
           type:'GET',
           success:function() {
-            App.currentArtist.clear()
+            App.currentArtist.clear();
             router.navigate('', {trigger: true});
           }
         });
