@@ -20,6 +20,10 @@ App.Templates['artists/signup-form'] = _.template('\
         <div class="large-6 columns">\
           <input type="email" name="contact" placeholder="Email"/>\
         </div>\
+        <div class="large-6 columns">\
+            <input type="password" name="password" placeholder="Password"/>          \
+          </div>\
+        </div>\
       </div>\
       <div class="row">\
         <div class="large-12 columns centered">\

@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 require 'vendor/slim/slim/Slim/LogWriter.php';
 require 'NotORM.php';
 
-$pdo = new PDO("mysql:dbname=cloudsong", 'root', 'rootPassword');
+$pdo = new PDO("mysql:dbname=cloudsong", 'root', 'root');
 $db = new NotORM($pdo);
 
 $app = new \Slim\Slim(array (
@@ -45,6 +45,15 @@ $app->post("/artists", function () use($app, $db) {
       );
     $result = $db->artists->insert($artist);
     echo json_encode($artist);
+});
+
+
+$app->post("/login", function() use ($app, $db) { 
+  $body = $app->request()->getBody();
+  $login = json_decode($body, true);
+
+  echo "Email: " . $login["email"] . " PW: " . $login["password"];
+
 });
 
 $app->run();
