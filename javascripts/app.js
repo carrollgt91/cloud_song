@@ -1,0 +1,5 @@
+// @codekit-prepend "templates.js"
+// @codekit-prepend "../templates/artists/signup-form.js"
+// @codekit-prepend "../templates/artists/login.js"
+// @codekit-prepend "../templates/static_pages/about.js"
+// @codekit-prepend "../templates/static_pages/landing.js"
