@@ -4687,7 +4687,7 @@ label.error {
   width: 100%;
   height: auto;
   display: block;
-  background: #222222;
+  background: #eeeeee;
   font-size: 16;
   margin: 0;
 }
@@ -4709,7 +4709,7 @@ label.error {
   padding-left: 16.66667px;
   font-size: 0.8125em;
   font-weight: 200;
-  background: #222222;
+  background: #eeeeee;
 }
 /* line 246, ../../../../../Users/graysoncarroll/.rvm/gems/ruby-1.9.3-p429@utilize_marketing/gems/zurb-foundation-4.3.1/scss/foundation/components/_top-bar.scss */
 .top-bar-section ul li > a.button {
@@ -4917,7 +4917,7 @@ label.error {
   }
   /* line 411, ../../../../../Users/graysoncarroll/.rvm/gems/ruby-1.9.3-p429@utilize_marketing/gems/zurb-foundation-4.3.1/scss/foundation/components/_top-bar.scss */
   .top-bar-section li a:not(.button).hover {
-    background: black;
+    background: #a2a2a2;
   }
   /* line 416, ../../../../../Users/graysoncarroll/.rvm/gems/ruby-1.9.3-p429@utilize_marketing/gems/zurb-foundation-4.3.1/scss/foundation/components/_top-bar.scss */
   .top-bar-section .has-dropdown > a {
@@ -7219,29 +7219,25 @@ a.th {
 
 /* line 64, ../sass/app.scss */
 header .logo {
-  margin: 0 0 0 60px;
+  margin: 0 0 0 5px;
   height: 50px;
 }
-/* line 69, ../sass/app.scss */
-header .right {
-  margin-right: 60px;
-}
-/* line 73, ../sass/app.scss */
+/* line 75, ../sass/app.scss */
 header li > a:hover {
   color: #3bbdee;
 }
 
-/* line 79, ../sass/app.scss */
+/* line 81, ../sass/app.scss */
 .button {
   background-color: #3bbdee;
 }
 
-/* line 83, ../sass/app.scss */
+/* line 85, ../sass/app.scss */
 .button:hover {
   background-color: #088abb;
 }
 
-/* line 87, ../sass/app.scss */
+/* line 89, ../sass/app.scss */
 .centered {
   text-align: center;
 }

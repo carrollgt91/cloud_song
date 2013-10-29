@@ -29,7 +29,7 @@ App.Templates['static_pages/about'] = _.template('\
       APIs (Or application programming interfaces) are the way modern web services provide data from servers to the any source who might need it. For Backbone to be able to interact with the database, it needs some way of talking to it through a secure, consistant channel. It does so by responding to requests at given <b>endpoints</b>.\
       </p> \
       <p>\
-      For example, sending a GET request to the <a href="api/index.php/artists"> /artists </a> endpoint will return the data needed to populate a list of artists. Most APIs communicate with their clients via JSON (<b>J</b>ava<b>s</b>cript <b>O</b>bject <b>N</b>otation), because nearly every programming language can easily parse JSON, it\'s human readable, and Javascript itself is often the language that\'s consuming these APIs, which is the case for CloudSong as well The Backbone AJAX calls I mentioned earlier hit these endpoints in order to get information on artists, songs, tags, and all the other data that makes the app tick.\
+      For example, sending a GET request to the <a href="api/index.php/artists"> /artists </a> endpoint will return the data needed to populate a list of artists. Most APIs communicate with their clients via JSON (<b>J</b>ava<b>s</b>cript <b>O</b>bject <b>N</b>otation), because nearly every programming language can easily parse JSON, it\'s human readable, and Javascript itself is often the language that\'s consuming these APIs, which is the case for CloudSong as well. The Backbone AJAX calls I mentioned earlier hit these endpoints in order to get information on artists, songs, tags, and all the other data that makes the app tick.\
       </p>\
     </p>\
   </div>\

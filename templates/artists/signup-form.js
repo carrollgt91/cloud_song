@@ -1,30 +1,32 @@
 App.Templates['artists/signup-form'] = _.template('\
-  <form action="/artist/new" class="signup-form large-12 columns">\
+  <form action="/artist/new" class="signup-form large-12 columns" data-abide>\
     <fieldset>\
         <div class="row">\
           <div class="large-6 columns">\
-            <input type="text" name="name" placeholder="Name"/>\
+            <input type="text" name="name" placeholder="Name" required/>\
           </div>\
           <div class="large-6 columns">\
             <input type="text" name="location" placeholder="Location"/>          \
           </div>\
         </div>\
       </div>\
+\
+      <div class="row">\
+        <div class="large-6 columns">\
+          <input type="email" name="contact" placeholder="Email" required/>\
+        </div>\
+        <div class="large-6 columns">\
+            <input type="password" name="password" placeholder="Password" required/>          \
+          </div>\
+        </div>\
+      </div>\
+\
       <div class="row">\
         <div class="large-12 columns">\
           <input type="text" name="tagline" placeholder="Tagline"/>\
         </div>\
       </div>\
 \
-      <div class="row">\
-        <div class="large-6 columns">\
-          <input type="email" name="contact" placeholder="Email"/>\
-        </div>\
-        <div class="large-6 columns">\
-            <input type="password" name="password" placeholder="Password"/>          \
-          </div>\
-        </div>\
-      </div>\
       <div class="row">\
         <div class="large-12 columns centered">\
           <button type="submit" class="medium"> Sign Up</button>\

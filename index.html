@@ -25,14 +25,12 @@
             </li>
               <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
           </ul>
-            
           <section class="top-bar-section">
 
           </section>
         </nav>
       </div>
-    </header>  
-	
+    </header>
 
   <div class="page">
   </div>
@@ -76,12 +74,16 @@
 	<script src="javascripts/foundation/foundation.tooltips.js"></script>
 	
 	<script src="javascripts/foundation/foundation.topbar.js"></script>
-	
+
+  <script type="text/javascript" src="javascripts/libs/noty/jquery.noty.js"></script>
+
+  <script type="text/javascript" src="javascripts/libs/noty/layouts/top.js"></script>
+
+  <script type="text/javascript" src="javascripts/libs/noty/themes/default.js"></script>
   
   <script>
     $(document).foundation();
   </script>
-
 
   <!-- Application core -->
   <script src="javascripts/app-ck.js"></script>
@@ -170,43 +172,6 @@
         <div class="row">
           <div class="large-12 columns">
             <button type="submit" class="medium"> Log in </button>
-          </div>
-        </div>
-      </fieldset>
-    </form>
-  </script>
-
-  <script type="text/template" id="signup-form-template">
-    <form action="/artist/new" class="signup-form large-12 columns">
-      <fieldset>
-          <div class="row">
-            <div class="large-6 columns">
-              <input type="text" name="name" placeholder="Name"/>
-            </div>
-            <div class="large-6 columns">
-              <input type="text" name="location" placeholder="Location"/>          
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-12 columns">
-            <input type="text" name="tagline" placeholder="Tagline"/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="large-6 columns">
-            <input type="email" name="contact" placeholder="Email"/>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-12 columns centered">
-            <button type="submit" class="medium"> Sign Up</button>
-          </div>
-        </div>
-        <div class="row">
-          <div class="large-12 columns centered">
-            <h4> Already have an account? <a href="#/login">Log in here </a> </h4>
           </div>
         </div>
       </fieldset>
@@ -316,10 +281,13 @@
           dataType:'json',
           data: loginDetails,
           success:function(data) {
-            console.log(data);
+            App.Flash.success("You are now logged in!");
             App.currentArtist.set(data);
             nav.render();
             router.navigate('', {trigger: true});
+          },
+          error: function() {
+            App.Flash.error("Invalid email or password");
           }
         });
         return false;
@@ -341,13 +309,13 @@
       },
 
       logout: function() {
-        console.log("try8in");
         $.ajax({
           url:'/logout',
           type:'GET',
           success:function() {
             App.currentArtist.clear();
             router.navigate('', {trigger: true});
+            location.reload(true);
           }
         });
       }
@@ -394,6 +362,8 @@
     Backbone.history.start();
     
   </script>
+
+
 
 
 </body>

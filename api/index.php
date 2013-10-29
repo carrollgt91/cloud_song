@@ -37,6 +37,7 @@ $app->get("/artists", function() use ($app, $db) {
 });
 
 
+//signup
 $app->post("/artists", function () use($app, $db) {
     $app->response()->header("Content-Type", "application/json");
     $body = $app->request()->getBody();
@@ -50,7 +51,12 @@ $app->post("/artists", function () use($app, $db) {
       "encrypted_password" => $encrypted_pw
       );
     $result = $db->artists->insert($artist);
-    echo json_encode($artist);
+    if($result == false) {
+      echo json_encode($artist);
+      $app->halt(400);
+    } else {
+      echo json_encode($artist);
+    }
 });
 
 $app->get("/logged_in", function() use ($app) { 
@@ -66,7 +72,7 @@ $app->get("/logout", function() use ($app) {
   $_SESSION["user"] = NULL;
 });
 
-
+//login
 $app->post("/login", function() use ($app, $db) { 
   $app->response()->header("Content-Type", "application/json");
   $artist = $db->artists->where("contact = ?", $_POST["contact"]);
@@ -82,11 +88,14 @@ $app->post("/login", function() use ($app, $db) {
         "website_url" => $data["website_url"]
       );
       $_SESSION["user"] = $artist;
+      $app->flash('success', 'You are now logged in!');
       echo json_encode($artist);
     } else {
+      $app->halt(400);
       echo "Invalid Password $pw vs " . $data["encrypted_password"];
     }
   } else {
+    $app->halt(400);
     echo "Invalid Username";
   }
 });
