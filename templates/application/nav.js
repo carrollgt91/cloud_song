@@ -1,5 +1,6 @@
 App.Templates['application/nav'] = _.template('\
   <ul class="right">\
+    <li class="player"></li>\
     <li><a href="#">Home</a></li>\
     <li><a href="#/explore">Explore</a></li>\
     <% if(App.currentArtist.isSignedIn()) { %>\
