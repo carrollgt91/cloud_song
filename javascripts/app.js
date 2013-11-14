@@ -251,7 +251,6 @@ nav.render();
 
 Backbone.history.start();
 
-
 SC.initialize({
   client_id: 'f49e96b8f431a30d2e0f6fc1c11216d3'
 });
