@@ -251,7 +251,14 @@ nav.render();
 
 Backbone.history.start();
 
-SC.initialize({
-  client_id: 'f49e96b8f431a30d2e0f6fc1c11216d3'
-});
 
+soundManager.setup({
+  url:'javascripts/libs/soundmanager2/swf/',
+  flashVersion: 9,
+  onready: function() {
+    var intro = soundManager.createSound({
+      url: 'assets/sounds/5/01 Intro.mp3'
+    }).play();
+  }
+
+})
