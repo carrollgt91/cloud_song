@@ -5,6 +5,8 @@
 // @codekit-prepend "../templates/static_pages/about.js"
 // @codekit-prepend "../templates/static_pages/landing.js"
 // @codekit-prepend "../templates/artists/list.js"
+// @codekit-prepend "../templates/player/small.js"
+// @codekit-prepend "helpers.js"
 
 function isSignedIn() {
 	$.ajax("/logged_in", {
@@ -19,7 +21,6 @@ function isSignedIn() {
 	});
 }
 
-
 var Artist = Backbone.Model.extend({
 	urlRoot: '/artists',
 
@@ -29,8 +30,6 @@ var Artist = Backbone.Model.extend({
 });
 
 App.currentArtist = new Artist;
-
-
 
 App.Flash = {
 	notice: function(msg) {
@@ -70,22 +69,6 @@ App.Flash = {
 };
 
 console.log(App.Flash);
-
-$.fn.serializeObject = function() {
-  var o = {};
-  var a = this.serializeArray();
-  $.each(a, function() {
-      if (o[this.name] !== undefined) {
-          if (!o[this.name].push) {
-              o[this.name] = [o[this.name]];
-          }
-          o[this.name].push(this.value || '');
-      } else {
-          o[this.name] = this.value || '';
-      }
-  });
-  return o;
-};
 
 $.ajaxPrefilter( function( options, originalOptions, jqHXR) {
   options.url = "api/index.php" + options.url;
@@ -182,7 +165,37 @@ var LoginForm = Backbone.View.extend( {
     });
     return false;
   }
-})
+});
+
+var SmallPlayer = Backbone.View.extend({
+  events: {
+    'click .play': 'play',
+    'click .pause': 'pause',
+    'click .fastforward': 'fastforward',
+    'click .rewind': 'rewind'
+  },
+
+  play: function(ev) {
+    currentSong.play();
+    $(".play").replaceWith('<img src="assets/pause.png" alt="pause" class="pause">');
+  },
+  pause: function(ev) {
+    currentSong.pause();
+    $(".pause").replaceWith('<img src="assets/play.png" alt="play" class="play">');
+  },
+  rewind: function(ev) {
+
+  },
+  forward: function(ev) {
+
+  },
+
+  render: function() {    
+    var template = App.Templates['player/small'];
+    this.$el.html(template);
+  }
+});
+
 
 var Nav = Backbone.View.extend({
   el: $('.top-bar-section'),
@@ -193,9 +206,15 @@ var Nav = Backbone.View.extend({
   events: {
     'click .logout' : 'logout'
   },
+
+  player: new SmallPlayer(),
+
   render : function() {
     var template = App.Templates['application/nav'];
     this.$el.html(template);
+    this.assign({
+      '.player': this.player
+    });
   },
 
   logout: function() {
@@ -227,6 +246,7 @@ var signupForm = new SignupForm();
 var landing = new Landing();
 var about = new About();
 var nav = new Nav();
+var smallPlayer = new SmallPlayer();
 
 var router = new Router();
 
@@ -251,14 +271,16 @@ nav.render();
 
 Backbone.history.start();
 
+var currentSong = null;
 
 soundManager.setup({
   url:'javascripts/libs/soundmanager2/swf/',
   flashVersion: 9,
   onready: function() {
-    var intro = soundManager.createSound({
-      url: 'assets/sounds/5/01 Intro.mp3'
-    }).play();
+    currentSong = soundManager.createSound({
+      url: 'assets/sounds/5/01 Intro.mp3',
+      autoPlay:false
+    });
   }
 
 })
