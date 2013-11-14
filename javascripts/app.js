@@ -21,15 +21,23 @@ function isSignedIn() {
 	});
 }
 
-var Artist = Backbone.Model.extend({
-	urlRoot: '/artists',
-
-	isSignedIn: function() {
-		return !this.isNew();
-	}
-});
-
-App.currentArtist = new Artist;
+function grabSongs() {
+  $.ajax("/songs", {
+    type: "GET",
+     dataType: "json",
+     success: function(data) {
+       App.currentList = data;
+       App.currentIndex = 0;
+       App.currentSong = soundManager.createSound({
+        url: data[App.currentIndex].track_url,
+        autoPlay: false
+       })
+     },
+     error: function() {
+       return false;
+     }
+  });
+}
 
 App.Flash = {
 	notice: function(msg) {
@@ -74,12 +82,20 @@ $.ajaxPrefilter( function( options, originalOptions, jqHXR) {
   options.url = "api/index.php" + options.url;
 });
 
-var Artists = Backbone.Collection.extend({
-  url: '/artists'
+var Artist = Backbone.Model.extend({
+  urlRoot: '/artists',
+
+  isSignedIn: function() {
+    return !this.isNew();
+  }
 });
 
-var Artist = Backbone.Model.extend({
-  urlRoot: '/artists'
+//Sets the current artist to be blank so you can easily assign it later
+App.currentArtist = new Artist;
+App.currentList = null;
+
+var Artists = Backbone.Collection.extend({
+  url: '/artists'
 });
 
 var ArtistList = Backbone.View.extend({
@@ -91,6 +107,30 @@ var ArtistList = Backbone.View.extend({
     {
       success: function(artists) {
         var template = _.template(App.Templates["artists/list"], {artists: artists.models });
+
+        that.$el.html(template);
+      }
+    })
+  }
+});
+
+var Song = Backbone.Model.extend({
+  urlRoot: '/songs',
+});
+
+var Songs = Backbone.Collection.extend({
+  url: '/songs'
+});
+
+var SongList = Backbone.View.extend({
+  el:'.page',
+  render: function() {
+    var that = this;
+    var songs = new Songs();
+    songs.fetch( 
+    {
+      success: function(artists) {
+        var template = _.template(App.Templates["songs/list"], {songs: songs.models });
 
         that.$el.html(template);
       }
@@ -176,18 +216,36 @@ var SmallPlayer = Backbone.View.extend({
   },
 
   play: function(ev) {
-    currentSong.play();
+    App.currentSong.play();
     $(".play").replaceWith('<img src="assets/pause.png" alt="pause" class="pause">');
   },
   pause: function(ev) {
-    currentSong.pause();
+    App.currentSong.pause();
     $(".pause").replaceWith('<img src="assets/play.png" alt="play" class="play">');
   },
   rewind: function(ev) {
+    //if it's currently paused, we shouldn't play the next song automatically
+    var shouldPlay = !App.currentSong.paused
 
+    App.currentSong.stop();
+    App.currentIndex = App.currentIndex==0 ? App.currentList.length -1 : App.currentIndex - 1;
+    
+    App.currentSong = soundManager.createSound({
+      url: App.currentList[App.currentIndex].track_url,
+      autoPlay: shouldPlay
+   })
   },
-  forward: function(ev) {
+  fastforward: function(ev) {
+    //if it's currently paused, we shouldn't play the next song automatically
+    var shouldPlay = !App.currentSong.paused
 
+    App.currentSong.stop();
+    App.currentIndex = (App.currentIndex+1) % App.currentList.length
+
+    App.currentSong = soundManager.createSound({
+      url: App.currentList[App.currentIndex].track_url,
+      autoPlay: shouldPlay
+    })
   },
 
   render: function() {    
@@ -277,10 +335,7 @@ soundManager.setup({
   url:'javascripts/libs/soundmanager2/swf/',
   flashVersion: 9,
   onready: function() {
-    currentSong = soundManager.createSound({
-      url: 'assets/sounds/5/01 Intro.mp3',
-      autoPlay:false
-    });
+    console.log("ready");
+    grabSongs();
   }
-
-})
+});

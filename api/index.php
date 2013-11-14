@@ -37,6 +37,21 @@ $app->get("/artists", function() use ($app, $db) {
 });
 
 
+$app->get("/songs", function() use ($app, $db) {
+  $songs = array();
+  foreach ($db->songs() as $song) {
+    $songs[] = array(
+      "id" => $song["id"],
+      "title" => $song["title"],
+      "artist_id" => $song["artist_id"],
+      "track_url" => $song["track_url"]
+    );
+  }
+  $app->response()->header("Content-Type", "application/json");
+  echo json_encode($songs);
+});
+
+
 //signup
 $app->post("/artists", function () use($app, $db) {
     $app->response()->header("Content-Type", "application/json");
