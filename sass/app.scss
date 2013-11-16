@@ -65,6 +65,14 @@ header {
     margin: 0 0 0 5px;
     height: 50px;
   }
+  .player {
+    .song {
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 
   .right {
     li {
@@ -88,4 +96,11 @@ header {
 
 .centered {
   text-align: center;
+}
+
+.player img{
+  margin: 10px 0;
+  width:30px;
+  height:30px;
+  cursor:pointer;
 }

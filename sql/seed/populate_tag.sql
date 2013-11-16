@@ -1,5 +1,5 @@
 USE cloudsong;
-INSERT INTO tags (name)
+INSERT INTO tag (name)
 VALUES
   ("Thoughts"),
   ("Flumestep"),

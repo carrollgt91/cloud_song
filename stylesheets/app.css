@@ -7222,22 +7222,37 @@ header .logo {
   margin: 0 0 0 5px;
   height: 50px;
 }
-/* line 75, ../sass/app.scss */
+/* line 69, ../sass/app.scss */
+header .player .song {
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* line 83, ../sass/app.scss */
 header li > a:hover {
   color: #3bbdee;
 }
 
-/* line 81, ../sass/app.scss */
+/* line 89, ../sass/app.scss */
 .button {
   background-color: #3bbdee;
 }
 
-/* line 85, ../sass/app.scss */
+/* line 93, ../sass/app.scss */
 .button:hover {
   background-color: #088abb;
 }
 
-/* line 89, ../sass/app.scss */
+/* line 97, ../sass/app.scss */
 .centered {
   text-align: center;
+}
+
+/* line 101, ../sass/app.scss */
+.player img {
+  margin: 10px 0;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }

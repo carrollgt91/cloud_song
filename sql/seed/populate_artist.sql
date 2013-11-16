@@ -1,6 +1,6 @@
 USE cloudsong;
 
-INSERT INTO artists (id, name, location, tagline, encrypted_password, contact)
+INSERT INTO artist (id, name, location, tagline, encrypted_password, contact)
 
 VALUES 
   (1, 'Flume', 'Australia', "Favorite", "sagqEBTy0jYO.", "flume@artists.com"),

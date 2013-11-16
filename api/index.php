@@ -22,7 +22,7 @@ $app->get("/", function () {
 
 $app->get("/artists", function() use ($app, $db) {
   $artists = array();
-  foreach ($db->artists() as $artist) {
+  foreach ($db->artist() as $artist) {
     $artists[] = array(
       "id" => $artist["id"],
       "name" => $artist["name"],
@@ -36,21 +36,35 @@ $app->get("/artists", function() use ($app, $db) {
   echo json_encode($artists);
 });
 
+$app->get("/artists/:id", function($id) use ($app, $db) {
+  $dbart = $db->artist[$id];
+    $artist = array(
+      "id" => $dbart["id"],
+      "name" => $dbart["name"],
+      "tagline" => $dbart["tagline"],
+      "location" => $dbart["location"],
+      "contact" => $dbart["contact"],
+      "website_url" => $dbart["website_url"]
+    );
+  $app->response()->header("Content-Type", "application/json");
+  echo json_encode($artist);
+});
 
 $app->get("/songs", function() use ($app, $db) {
   $songs = array();
-  foreach ($db->songs() as $song) {
+  foreach ($db->song() as $song) {
+    $artist = $db->artist[$song["artist_id"]];
+    $name = $artist["name"];
     $songs[] = array(
       "id" => $song["id"],
       "title" => $song["title"],
-      "artist_id" => $song["artist_id"],
+      "artist" => $name,
       "track_url" => $song["track_url"]
     );
   }
   $app->response()->header("Content-Type", "application/json");
   echo json_encode($songs);
 });
-
 
 //signup
 $app->post("/artists", function () use($app, $db) {
@@ -65,7 +79,7 @@ $app->post("/artists", function () use($app, $db) {
       "contact" => $converted_artist["contact"],
       "encrypted_password" => $encrypted_pw
       );
-    $result = $db->artists->insert($artist);
+    $result = $db->artist->insert($artist);
     if($result == false) {
       echo json_encode($artist);
       $app->halt(400);
@@ -80,7 +94,6 @@ $app->get("/logged_in", function() use ($app) {
    } else {
     echo json_encode($_SESSION["user"]);
    }
-
 });
 
 $app->get("/logout", function() use ($app) { 
@@ -90,7 +103,7 @@ $app->get("/logout", function() use ($app) {
 //login
 $app->post("/login", function() use ($app, $db) { 
   $app->response()->header("Content-Type", "application/json");
-  $artist = $db->artists->where("contact = ?", $_POST["contact"]);
+  $artist = $db->artist->where("contact = ?", $_POST["contact"]);
   if($data = $artist->fetch()){
     $pw = crypt($_POST['password'], "salting it up");
     if($pw === $data["encrypted_password"]) {

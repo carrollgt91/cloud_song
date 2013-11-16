@@ -1,4 +1,4 @@
 USE cloudsong;
 
-ALTER TABLE artists ADD UNIQUE contact (contact);
+ALTER TABLE artist ADD UNIQUE contact (contact);
 

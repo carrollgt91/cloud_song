@@ -28,10 +28,13 @@ function grabSongs() {
      success: function(data) {
        App.currentList = data;
        App.currentIndex = 0;
-       App.currentSong = soundManager.createSound({
-        url: data[App.currentIndex].track_url,
+       App.currentSong = App.currentList[0];
+       App.currentSound = soundManager.createSound({
+        url: App.currentSong.track_url,
         autoPlay: false
-       })
+       });
+
+       player.render();
      },
      error: function() {
        return false;
@@ -83,7 +86,17 @@ $.ajaxPrefilter( function( options, originalOptions, jqHXR) {
 });
 
 var Artist = Backbone.Model.extend({
-  urlRoot: '/artists',
+
+  initialize: function() {
+    var id = this.id != undefined ? "/" + this.id : "";
+    this.url = '/artists' + id;
+    var Songs = Backbone.Collection.extend({
+      url: this.url + '/songs'
+    });
+    this.set("songs", Songs);
+  },
+
+  
 
   isSignedIn: function() {
     return !this.isNew();
@@ -118,19 +131,15 @@ var Song = Backbone.Model.extend({
   urlRoot: '/songs',
 });
 
-var Songs = Backbone.Collection.extend({
-  url: '/songs'
-});
-
 var SongList = Backbone.View.extend({
   el:'.page',
   render: function() {
     var that = this;
-    var songs = new Songs();
+    var Songs = new Songs();
     songs.fetch( 
     {
       success: function(artists) {
-        var template = _.template(App.Templates["songs/list"], {songs: songs.models });
+        var template = _.template(App.Templates["songs/list"], { songs: songs.models });
 
         that.$el.html(template);
       }
@@ -207,7 +216,8 @@ var LoginForm = Backbone.View.extend( {
   }
 });
 
-var SmallPlayer = Backbone.View.extend({
+var Player = Backbone.View.extend({
+  el: $('.player'),
   events: {
     'click .play': 'play',
     'click .pause': 'pause',
@@ -215,64 +225,67 @@ var SmallPlayer = Backbone.View.extend({
     'click .rewind': 'rewind'
   },
 
+  swapArtist: function() {
+    $(".player>li>.song").html(App.currentSong.artist + " - " + App.currentSong.title);
+  },
+
   play: function(ev) {
-    App.currentSong.play();
+    App.currentSound.play();
     $(".play").replaceWith('<img src="assets/pause.png" alt="pause" class="pause">');
   },
   pause: function(ev) {
-    App.currentSong.pause();
+    App.currentSound.pause();
     $(".pause").replaceWith('<img src="assets/play.png" alt="play" class="play">');
   },
   rewind: function(ev) {
     //if it's currently paused, we shouldn't play the next song automatically
-    var shouldPlay = !App.currentSong.paused
+    var shouldPlay = App.currentSound.playState == 1 && !App.currentSound.paused
 
-    App.currentSong.stop();
+    App.currentSound.stop();
     App.currentIndex = App.currentIndex==0 ? App.currentList.length -1 : App.currentIndex - 1;
-    
-    App.currentSong = soundManager.createSound({
-      url: App.currentList[App.currentIndex].track_url,
+    App.currentSong = App.currentList[App.currentIndex];
+    App.currentSound = soundManager.createSound({
+      url: App.currentSong.track_url,
       autoPlay: shouldPlay
-   })
+   });
+    this.swapArtist();
   },
   fastforward: function(ev) {
     //if it's currently paused, we shouldn't play the next song automatically
-    var shouldPlay = !App.currentSong.paused
+    var shouldPlay = App.currentSound.playState == 1 && !App.currentSound.paused
 
-    App.currentSong.stop();
+    App.currentSound.stop();
     App.currentIndex = (App.currentIndex+1) % App.currentList.length
-
-    App.currentSong = soundManager.createSound({
-      url: App.currentList[App.currentIndex].track_url,
+    App.currentSong = App.currentList[App.currentIndex];
+    App.currentSound = soundManager.createSound({
+      url: App.currentSong.track_url,
       autoPlay: shouldPlay
-    })
+   });
+    this.swapArtist();
   },
 
   render: function() {    
-    var template = App.Templates['player/small'];
+    var template = _.template(App.Templates["player/small"], {song: App.currentSong});
     this.$el.html(template);
   }
 });
 
 
 var Nav = Backbone.View.extend({
-  el: $('.top-bar-section'),
+  el: $('.right'),
 
   initialize: function() {
     this.listenTo(App.currentArtist, "change", this.render);
   },
+
   events: {
     'click .logout' : 'logout'
   },
 
-  player: new SmallPlayer(),
-
   render : function() {
     var template = App.Templates['application/nav'];
     this.$el.html(template);
-    this.assign({
-      '.player': this.player
-    });
+    
   },
 
   logout: function() {
@@ -304,7 +317,7 @@ var signupForm = new SignupForm();
 var landing = new Landing();
 var about = new About();
 var nav = new Nav();
-var smallPlayer = new SmallPlayer();
+var player = new Player();
 
 var router = new Router();
 
@@ -328,8 +341,6 @@ isSignedIn();
 nav.render();
 
 Backbone.history.start();
-
-var currentSong = null;
 
 soundManager.setup({
   url:'javascripts/libs/soundmanager2/swf/',

@@ -1,6 +1,6 @@
 USE cloudsong;
 
-INSERT INTO lists (id, title, owner_id)
+INSERT INTO lists (id, title, artist_id)
 VALUES 
   (1, 'Flume', 1),
   (2, 'Alle Farben meets Rainer Weichhold', 2),
