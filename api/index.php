@@ -7,7 +7,7 @@ require 'NotORM.php';
 
 session_start();
 
-$pdo = new PDO("mysql:dbname=cloudsong", 'root', 'root');
+$pdo = new PDO("mysql:dbname=cloudsong", 'root', 'rootPassword');
 $db = new NotORM($pdo);
 
 $app = new \Slim\Slim(array (
@@ -82,7 +82,7 @@ $app->post("/songs/upload", function() use ($app, $db) {
       'error' => $_FILES["files"]['error'][0]
   );
 
-  $root_path = "/Applications/MAMP/htdocs/cloud_song/assets/sounds/" . $_POST['artist_id'] . "/";
+  $root_path = "/home/designer/html/cloud_song/assets/sounds/" . $_POST['artist_id'] . "/";
   $file_path = $root_path . $file["name"];
 
   $append_file = is_file($file_path) && $file['size'] > filesize($file_path);

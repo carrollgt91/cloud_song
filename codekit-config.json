@@ -281,14 +281,16 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/stylesheets\/app.css" : {
+    "\/templates\/artists\/signup-form.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
-      "hidden" : 1,
+      "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/stylesheets\/app.css",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 16
+      "inputAbbreviatedPath" : "\/templates\/artists\/signup-form.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/templates\/artists\/signup-form-ck.js",
+      "fileType" : 64
     },
     "\/api\/vendor\/slim\/slim\/Slim\/Route.php" : {
       "ignoreWasSetByUser" : 0,
@@ -308,16 +310,14 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/templates\/artists\/signup-form.js" : {
+    "\/stylesheets\/app.css" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
-      "hidden" : 0,
+      "hidden" : 1,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/templates\/artists\/signup-form.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/templates\/artists\/signup-form-ck.js",
-      "fileType" : 64
+      "inputAbbreviatedPath" : "\/stylesheets\/app.css",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 16
     },
     "\/api\/NotORM\/Structure.php" : {
       "ignoreWasSetByUser" : 0,
@@ -432,6 +432,15 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/api\/vendor\/slim\/slim\/tests\/Middleware\/MethodOverrideTest.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Middleware\/MethodOverrideTest.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/javascripts\/foundation\/foundation.orbit.js" : {
       "ignoreWasSetByUser" : 1,
       "ignore" : 1,
@@ -454,6 +463,15 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.tooltips-ck.js",
       "fileType" : 64
     },
+    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Util.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Util.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/javascripts\/app.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -465,15 +483,6 @@
       "outputAbbreviatedPath" : "\/javascripts\/app-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Util.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Util.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/templates\/artists\/show.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -484,15 +493,6 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/templates\/artists\/show-ck.js",
       "fileType" : 64
-    },
-    "\/api\/vendor\/slim\/slim\/tests\/Middleware\/MethodOverrideTest.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Middleware\/MethodOverrideTest.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/templates\/static_pages\/about.js" : {
       "ignoreWasSetByUser" : 0,
