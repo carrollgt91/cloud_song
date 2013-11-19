@@ -53,21 +53,21 @@
       "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.interchange-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/slim\/slim\/tests\/LogWriterTest.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/LogWriterTest.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/PrettyExceptions.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/PrettyExceptions.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/api\/vendor\/slim\/slim\/tests\/LogWriterTest.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/LogWriterTest.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -328,17 +328,6 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/javascripts\/foundation\/foundation.topbar.js" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.topbar.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.topbar-ck.js",
-      "fileType" : 64
-    },
     "\/javascripts\/libs\/noty\/layouts\/centerLeft.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -367,6 +356,17 @@
       "inputAbbreviatedPath" : "\/api\/vendor\/autoload.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
+    },
+    "\/javascripts\/foundation\/foundation.topbar.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.topbar.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.topbar-ck.js",
+      "fileType" : 64
     },
     "\/templates\/sessions\/login.js" : {
       "ignoreWasSetByUser" : 0,
@@ -472,17 +472,6 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/javascripts\/app.js" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/javascripts\/app.js",
-      "outputStyle" : 0,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/javascripts\/app-ck.js",
-      "fileType" : 64
-    },
     "\/templates\/artists\/show.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -492,6 +481,17 @@
       "outputStyle" : 1,
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/templates\/artists\/show-ck.js",
+      "fileType" : 64
+    },
+    "\/javascripts\/app.js" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/javascripts\/app.js",
+      "outputStyle" : 0,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/javascripts\/app-ck.js",
       "fileType" : 64
     },
     "\/templates\/static_pages\/about.js" : {
@@ -852,6 +852,15 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
+    "\/api\/vendor\/slim\/slim\/Slim\/Environment.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Environment.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
     "\/javascripts\/libs\/backbone.defered-view-loader.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
@@ -862,15 +871,6 @@
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/javascripts\/libs\/backbone.defered-view-loader-ck.js",
       "fileType" : 64
-    },
-    "\/api\/vendor\/slim\/slim\/Slim\/Environment.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Environment.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
     },
     "\/javascripts\/foundation\/foundation.joyride.js" : {
       "ignoreWasSetByUser" : 1,

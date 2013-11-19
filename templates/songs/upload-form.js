@@ -13,11 +13,6 @@ App.Templates['songs/upload-form'] ='\
         </div>\
       </div>\
 \
-      <div class="row">\
-        <div class="large-12 columns centered">\
-          <button type="submit" class="medium">Upload Song</button>\
-        </div>\
-      </div>\
     </fieldset>\
   </form>\
 ';
