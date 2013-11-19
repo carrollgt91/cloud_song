@@ -50,9 +50,12 @@ $app->get("/artists/:id", function($id) use ($app, $db) {
   echo json_encode($artist);
 });
 
-$app->get("/songs", function() use ($app, $db) {
+$app->get("/artists/:id/songs", function($id) use ($app, $db) {
+  $dbsongs = $db->song()
+    ->where("artist_id = ?", $id);
+
   $songs = array();
-  foreach ($db->song() as $song) {
+  foreach ($dbsongs as $song) {
     $artist = $db->artist[$song["artist_id"]];
     $name = $artist["name"];
     $songs[] = array(
@@ -62,8 +65,27 @@ $app->get("/songs", function() use ($app, $db) {
       "track_url" => $song["track_url"]
     );
   }
+
   $app->response()->header("Content-Type", "application/json");
   echo json_encode($songs);
+});
+
+$app->post("/songs", function() use ($app, $db) {
+  $app->response()->header("Content-Type", "application/json");
+  $body = $app->request()->getBody();
+  $converted_song = json_decode($body, true);
+
+  $song = array(
+      "title" => $converted_song["title"],
+      "track_url" => $converted_song["track_url"],
+      );
+    $result = $db->song->insert($song);
+    if($result == false) {
+      echo json_encode($song);
+      $app->halt(400);
+    } else {
+      echo json_encode($song);
+    }
 });
 
 //signup

@@ -6,6 +6,8 @@
 // @codekit-prepend "../templates/static_pages/landing.js"
 // @codekit-prepend "../templates/artists/list.js"
 // @codekit-prepend "../templates/player/small.js"
+// @codekit-prepend "../templates/artists/show.js"
+// @codekit-prepend "../templates/songs/upload-form.js"
 // @codekit-prepend "helpers.js"
 
 function isSignedIn() {
@@ -85,22 +87,45 @@ $.ajaxPrefilter( function( options, originalOptions, jqHXR) {
   options.url = "api/index.php" + options.url;
 });
 
+
+var Song = Backbone.Model.extend({
+  urlRoot: '/songs',
+});
+
+var Songs = Backbone.Collection.extend({
+  url: "/songs",
+});
+
+var SongList = Backbone.View.extend({
+
+  
+  render: function(javascripts) {
+    var that = this;
+    var songs = new Songs();
+    songs.fetch( 
+    {
+      success: function(artists) {
+        var template = _.template(App.Templates["songs/list"], { songs: songs.models });
+
+        that.$el.html(template);
+      }
+    })
+  }
+});
+
+
 var Artist = Backbone.Model.extend({
 
   initialize: function() {
-    var id = this.id != undefined ? "/" + this.id : "";
-    this.url = '/artists' + id;
-    var Songs = Backbone.Collection.extend({
-      url: this.url + '/songs'
-    });
-    this.set("songs", Songs);
+    this.urlRoot = "/artists"
+    var songs = new Songs();
+    this.set("songs", songs);
   },
 
-  
-
   isSignedIn: function() {
-    return !this.isNew();
+    return this.id == App.currentArtist.id && !this.isNew();
   }
+
 });
 
 //Sets the current artist to be blank so you can easily assign it later
@@ -127,23 +152,25 @@ var ArtistList = Backbone.View.extend({
   }
 });
 
-var Song = Backbone.Model.extend({
-  urlRoot: '/songs',
-});
-
-var SongList = Backbone.View.extend({
+var ArtistView = Backbone.View.extend({
   el:'.page',
+
   render: function() {
     var that = this;
-    var Songs = new Songs();
-    songs.fetch( 
-    {
-      success: function(artists) {
-        var template = _.template(App.Templates["songs/list"], { songs: songs.models });
+    this.model.fetch({
+      success: function(artist) {
+        var that2 = that;
+        var songs = artist.get("songs");
+        songs.url = artist.url() + "/songs";
+        songs.fetch({
+          success: function(songs) {
+            var template = _.template(App.Templates["artists/show"], {artist: artist, songs: songs.models});
 
-        that.$el.html(template);
+            that2.$el.html(template);
+          }
+        });
       }
-    })
+    });
   }
 });
 
@@ -270,6 +297,28 @@ var Player = Backbone.View.extend({
   }
 });
 
+var Upload = Backbone.View.extend( {
+  el:'.page',
+  render: function() {
+    var template = App.Templates['songs/upload-form'];
+    this.$el.html(template);
+  },
+  events: {
+    'submit .upload-form': 'saveSong'
+  },
+
+  saveSong: function(ev) {
+    var songDetails = $(ev.currentTarget).serializeObject();
+    var song = new Song();
+    song.save(songDetails, {
+      success: function(song) {
+        router.navigate('artist/' + App.currentArtist.id, {trigger: true});
+      }
+    })
+    return false;
+  }
+})
+
 
 var Nav = Backbone.View.extend({
   el: $('.right'),
@@ -306,8 +355,10 @@ var Router = Backbone.Router.extend({
     '': 'home',
     'signup': 'newArtist',
     'explore': 'listArtists',
+    'artist/:id': 'showArtist',
     'about': 'about',
-    'login': 'login'
+    'login': 'login',
+    'upload': 'upload',
   }
 });
 
@@ -318,6 +369,7 @@ var landing = new Landing();
 var about = new About();
 var nav = new Nav();
 var player = new Player();
+var upload = new Upload();
 
 var router = new Router();
 
@@ -334,9 +386,26 @@ router.on('route:about', function() {
   about.render();
 });
 router.on('route:login', function() {
-  loginForm.render();
+  if(!App.currentArtist.isNew()) {
+    router.navigate("", true);
+  } else {
+    loginForm.render();
+  }
 });
 
+router.on('route:upload', function() {
+  if(!App.currentArtist.isNew()) {
+    router.navigate("", true);
+  } else {
+    upload.render();
+  }
+});
+
+router.on('route:showArtist', function(id) {
+  var artist = new Artist({id:id});
+  var view = new ArtistView({model:artist})
+  view.render();
+});
 isSignedIn();
 nav.render();
 
