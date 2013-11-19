@@ -198,24 +198,24 @@ App.Templates['artists/show'] ='\
     </h4>\
   </div>\
   <% }); %>\
-</div>'
+</div>';
 
 /* **********************************************
      Begin upload-form.js
 ********************************************** */
 
-App.Templates['songs/upload-form'] = _.template('\
-  <form action="/songs/new" class="upload-form large-12 columns" data-abide>\
+App.Templates['songs/upload-form'] ='\
+  <form action="api/index.php/songs/upload" class="upload-form large-12 columns" data-abide>\
     <fieldset>\
         <div class="row">\
           <div class="large-12 columns">\
             <input type="text" name="title" placeholder="Title" required/>\
+            <input type="hidden" name="artist_id" value=<%= artist.get("id")%> />\
           </div>\
       </div>\
 \
       <div class="row">\
-        <div class="large-12 columns">\
-          <input type="file" name="location" placeholder="Location"/>          \
+        <div class="large-12 columns" id="upload-manager">\
         </div>\
       </div>\
 \
@@ -226,7 +226,8 @@ App.Templates['songs/upload-form'] = _.template('\
       </div>\
     </fieldset>\
   </form>\
-');
+';
+
 
 /* **********************************************
      Begin helpers.js
@@ -264,24 +265,12 @@ $.fn.serializeObject = function() {
 };
 
 
-
-$("input[type=file]").each(function() {
-    var proxy = $('<input type="text" value="'+$(this).val()+'" />');
-
-    var context = {_this: $(this), _proxy: proxy};
-    var intervalFunc = $.proxy(function() {
-        this._proxy.val(this._this.val());
-    }, context);
-
-    // hide file input and watch for changes
-    $(this)
-        .css("position", "absolute")
-        .css("opacity", "0.000001")
-        .attr("size", "100")
-        .parent().append(proxy)
-        .click(function() {
-            setInterval(intervalFunc, 1000);
-        });
+var uploadManager = new Backbone.UploadManager({
+    'uploadUrl': '/cloud_song/api/index.php/songs/upload',
+    'templates': {
+        'main': 'upload_manager/upload-manager.main',
+        'file': 'upload_manager/upload-manager.file'
+    }
 });
 
 /* **********************************************
@@ -301,7 +290,7 @@ $("input[type=file]").each(function() {
 // @codekit-prepend "helpers.js"
 
 function isSignedIn() {
-	$.ajax("/logged_in", {
+	$.ajax("api/index.php/logged_in", {
 		type: "GET",
 		 dataType: "json",
 		 success: function(data) {
@@ -314,7 +303,7 @@ function isSignedIn() {
 }
 
 function grabSongs() {
-  $.ajax("/songs", {
+  $.ajax("api/index.php/artists/5/songs", {
     type: "GET",
      dataType: "json",
      success: function(data) {
@@ -371,19 +360,12 @@ App.Flash = {
 	}
 };
 
-console.log(App.Flash);
-
-$.ajaxPrefilter( function( options, originalOptions, jqHXR) {
-  options.url = "api/index.php" + options.url;
-});
-
-
 var Song = Backbone.Model.extend({
-  urlRoot: '/songs',
+  urlRoot: 'api/index.php/songs',
 });
 
 var Songs = Backbone.Collection.extend({
-  url: "/songs",
+  url: "api/index.php/songs",
 });
 
 var SongList = Backbone.View.extend({
@@ -407,7 +389,7 @@ var SongList = Backbone.View.extend({
 var Artist = Backbone.Model.extend({
 
   initialize: function() {
-    this.urlRoot = "/artists"
+    this.urlRoot = "api/index.php/artists"
     var songs = new Songs();
     this.set("songs", songs);
   },
@@ -423,7 +405,7 @@ App.currentArtist = new Artist;
 App.currentList = null;
 
 var Artists = Backbone.Collection.extend({
-  url: '/artists'
+  url: 'api/index.php/artists'
 });
 
 var ArtistList = Backbone.View.extend({
@@ -451,7 +433,7 @@ var ArtistView = Backbone.View.extend({
       success: function(artist) {
         var that2 = that;
         var songs = artist.get("songs");
-        songs.url = artist.url() + "/songs";
+        songs.url = artist.url() + "songs";
         songs.fetch({
           success: function(songs) {
             var template = _.template(App.Templates["artists/show"], {artist: artist, songs: songs.models});
@@ -515,7 +497,7 @@ var LoginForm = Backbone.View.extend( {
   signInArtist: function(ev) {
     var loginDetails = $(ev.currentTarget).serializeObject();
     $.ajax({
-      url:'/login',
+      url:'api/index.php/login',
       type:'POST',
       dataType:'json',
       data: loginDetails,
@@ -590,8 +572,9 @@ var Player = Backbone.View.extend({
 var Upload = Backbone.View.extend( {
   el:'.page',
   render: function() {
-    var template = App.Templates['songs/upload-form'];
+    var template = _.template(App.Templates['songs/upload-form'], {artist:App.currentArtist});
     this.$el.html(template);
+    uploadManager.renderTo($('#upload-manager'));
   },
   events: {
     'submit .upload-form': 'saveSong'
@@ -600,6 +583,9 @@ var Upload = Backbone.View.extend( {
   saveSong: function(ev) {
     var songDetails = $(ev.currentTarget).serializeObject();
     var song = new Song();
+
+
+
     song.save(songDetails, {
       success: function(song) {
         router.navigate('artist/' + App.currentArtist.id, {trigger: true});
@@ -608,7 +594,6 @@ var Upload = Backbone.View.extend( {
     return false;
   }
 })
-
 
 var Nav = Backbone.View.extend({
   el: $('.right'),
@@ -629,7 +614,7 @@ var Nav = Backbone.View.extend({
 
   logout: function() {
     $.ajax({
-      url:'/logout',
+      url:'api/index.php/logout',
       type:'GET',
       success:function() {
         App.currentArtist.clear();
@@ -684,10 +669,11 @@ router.on('route:login', function() {
 });
 
 router.on('route:upload', function() {
-  if(!App.currentArtist.isNew()) {
+  if(App.currentArtist.isNew()) {
     router.navigate("", true);
   } else {
     upload.render();
+    $("#f1_upload_process").hide();
   }
 });
 

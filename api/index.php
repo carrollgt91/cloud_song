@@ -15,7 +15,6 @@ $app = new \Slim\Slim(array (
   'log.enable' => true, 'log.level' => \Slim\Log::DEBUG
   ));
 
-
 $app->get("/", function () {
   echo "<h1> Hello World <h1>";
 });
@@ -70,22 +69,55 @@ $app->get("/artists/:id/songs", function($id) use ($app, $db) {
   echo json_encode($songs);
 });
 
-$app->post("/songs", function() use ($app, $db) {
+$app->post("/songs/upload", function() use ($app, $db) {
   $app->response()->header("Content-Type", "application/json");
   $body = $app->request()->getBody();
   $converted_song = json_decode($body, true);
 
-  $song = array(
-      "title" => $converted_song["title"],
-      "track_url" => $converted_song["track_url"],
-      );
-    $result = $db->song->insert($song);
-    if($result == false) {
-      echo json_encode($song);
-      $app->halt(400);
+  $file = array(
+      'tmp_name' => $_FILES["files"]['tmp_name'][0],
+      'name' => $_FILES["files"]['name'][0],
+      'size' => $_FILES["files"]['size'][0],
+      'type' => $_FILES["files"]['type'][0],
+      'error' => $_FILES["files"]['error'][0]
+  );
+
+  $root_path = "/Applications/MAMP/htdocs/cloud_song/assets/sounds/" . $_POST['artist_id'] . "/";
+  $file_path = $root_path . $file["name"];
+
+  $append_file = is_file($file_path) && $file['size'] > filesize($file_path);
+
+  clearstatcache();
+
+  if ($file['tmp_name'] && is_uploaded_file($file['tmp_name'])) {
+    // multipart/formdata uploads (POST method uploads)
+    if ($append_file) {
+        file_put_contents(
+            $file_path,
+            fopen($file['tmp_name'], 'r'),
+            FILE_APPEND
+        );
+        $file['method'] = 'append';
     } else {
-      echo json_encode($song);
+        move_uploaded_file($file['tmp_name'], $file_path);
+        $file['method'] = 'move';
     }
+  }
+
+  $song = array(
+      "title" => $_POST["title"],
+      "track_url" => $file_path,
+      "artist_id" => $_POST["artist_id"]
+    );
+
+  $result = $db->song->insert($song);
+
+  if($result == false) {
+    echo json_encode($song);
+    $app->halt(400);
+  } else {
+    echo json_encode($song);
+  }
 });
 
 //signup

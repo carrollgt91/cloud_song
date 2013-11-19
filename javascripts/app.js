@@ -11,7 +11,7 @@
 // @codekit-prepend "helpers.js"
 
 function isSignedIn() {
-	$.ajax("/logged_in", {
+	$.ajax("api/index.php/logged_in", {
 		type: "GET",
 		 dataType: "json",
 		 success: function(data) {
@@ -24,7 +24,7 @@ function isSignedIn() {
 }
 
 function grabSongs() {
-  $.ajax("/songs", {
+  $.ajax("api/index.php/artists/5/songs", {
     type: "GET",
      dataType: "json",
      success: function(data) {
@@ -81,19 +81,12 @@ App.Flash = {
 	}
 };
 
-console.log(App.Flash);
-
-$.ajaxPrefilter( function( options, originalOptions, jqHXR) {
-  options.url = "api/index.php" + options.url;
-});
-
-
 var Song = Backbone.Model.extend({
-  urlRoot: '/songs',
+  urlRoot: 'api/index.php/songs',
 });
 
 var Songs = Backbone.Collection.extend({
-  url: "/songs",
+  url: "api/index.php/songs",
 });
 
 var SongList = Backbone.View.extend({
@@ -117,7 +110,7 @@ var SongList = Backbone.View.extend({
 var Artist = Backbone.Model.extend({
 
   initialize: function() {
-    this.urlRoot = "/artists"
+    this.urlRoot = "api/index.php/artists"
     var songs = new Songs();
     this.set("songs", songs);
   },
@@ -133,7 +126,7 @@ App.currentArtist = new Artist;
 App.currentList = null;
 
 var Artists = Backbone.Collection.extend({
-  url: '/artists'
+  url: 'api/index.php/artists'
 });
 
 var ArtistList = Backbone.View.extend({
@@ -161,7 +154,7 @@ var ArtistView = Backbone.View.extend({
       success: function(artist) {
         var that2 = that;
         var songs = artist.get("songs");
-        songs.url = artist.url() + "/songs";
+        songs.url = artist.url() + "songs";
         songs.fetch({
           success: function(songs) {
             var template = _.template(App.Templates["artists/show"], {artist: artist, songs: songs.models});
@@ -225,7 +218,7 @@ var LoginForm = Backbone.View.extend( {
   signInArtist: function(ev) {
     var loginDetails = $(ev.currentTarget).serializeObject();
     $.ajax({
-      url:'/login',
+      url:'api/index.php/login',
       type:'POST',
       dataType:'json',
       data: loginDetails,
@@ -300,8 +293,9 @@ var Player = Backbone.View.extend({
 var Upload = Backbone.View.extend( {
   el:'.page',
   render: function() {
-    var template = App.Templates['songs/upload-form'];
+    var template = _.template(App.Templates['songs/upload-form'], {artist:App.currentArtist});
     this.$el.html(template);
+    uploadManager.renderTo($('#upload-manager'));
   },
   events: {
     'submit .upload-form': 'saveSong'
@@ -310,6 +304,9 @@ var Upload = Backbone.View.extend( {
   saveSong: function(ev) {
     var songDetails = $(ev.currentTarget).serializeObject();
     var song = new Song();
+
+
+
     song.save(songDetails, {
       success: function(song) {
         router.navigate('artist/' + App.currentArtist.id, {trigger: true});
@@ -318,7 +315,6 @@ var Upload = Backbone.View.extend( {
     return false;
   }
 })
-
 
 var Nav = Backbone.View.extend({
   el: $('.right'),
@@ -339,7 +335,7 @@ var Nav = Backbone.View.extend({
 
   logout: function() {
     $.ajax({
-      url:'/logout',
+      url:'api/index.php/logout',
       type:'GET',
       success:function() {
         App.currentArtist.clear();
@@ -394,10 +390,11 @@ router.on('route:login', function() {
 });
 
 router.on('route:upload', function() {
-  if(!App.currentArtist.isNew()) {
+  if(App.currentArtist.isNew()) {
     router.navigate("", true);
   } else {
     upload.render();
+    $("#f1_upload_process").hide();
   }
 });
 

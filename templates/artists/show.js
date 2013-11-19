@@ -9,4 +9,4 @@ App.Templates['artists/show'] ='\
     </h4>\
   </div>\
   <% }); %>\
-</div>'
+</div>';

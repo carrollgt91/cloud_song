@@ -30,22 +30,10 @@ $.fn.serializeObject = function() {
 };
 
 
-
-$("input[type=file]").each(function() {
-    var proxy = $('<input type="text" value="'+$(this).val()+'" />');
-
-    var context = {_this: $(this), _proxy: proxy};
-    var intervalFunc = $.proxy(function() {
-        this._proxy.val(this._this.val());
-    }, context);
-
-    // hide file input and watch for changes
-    $(this)
-        .css("position", "absolute")
-        .css("opacity", "0.000001")
-        .attr("size", "100")
-        .parent().append(proxy)
-        .click(function() {
-            setInterval(intervalFunc, 1000);
-        });
+var uploadManager = new Backbone.UploadManager({
+    'uploadUrl': '/cloud_song/api/index.php/songs/upload',
+    'templates': {
+        'main': 'upload_manager/upload-manager.main',
+        'file': 'upload_manager/upload-manager.file'
+    }
 });
