@@ -82,7 +82,7 @@ $app->post("/songs/upload", function() use ($app, $db) {
       'error' => $_FILES["files"]['error'][0]
   );
 
-  $root_path = "/home/designer/html/cloud_song/assets/sounds/" . $_POST['artist_id'] . "/";
+  $root_path = "../assets/sounds/" . $_POST['artist_id'] . "/";
   $file_path = $root_path . $file["name"];
 
   $append_file = is_file($file_path) && $file['size'] > filesize($file_path);
