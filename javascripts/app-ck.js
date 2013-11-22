@@ -225,6 +225,188 @@ App.Templates['songs/upload-form'] ='\
 
 
 /* **********************************************
+     Begin song.js
+********************************************** */
+
+var Song = Backbone.Model.extend({
+  urlRoot: 'api/index.php/songs',
+});
+
+var Songs = Backbone.Collection.extend({
+  url: "api/index.php/songs",
+});
+
+/* **********************************************
+     Begin artist.js
+********************************************** */
+
+var Artist = Backbone.Model.extend({
+
+  initialize: function() {
+    this.urlRoot = "api/index.php/artists"
+    var songs = new Songs();
+    this.set("songs", songs);
+  },
+
+  isSignedIn: function() {
+    return this.id == App.currentArtist.id && !this.isNew();
+  }
+
+});
+
+//Sets the current artist to be blank so you can easily assign it later
+App.currentArtist = new Artist;
+App.currentList = null;
+
+var Artists = Backbone.Collection.extend({
+  url: 'api/index.php/artists'
+});
+
+/* **********************************************
+     Begin song.js
+********************************************** */
+
+
+var SongList = Backbone.View.extend({
+
+  
+  render: function(javascripts) {
+    var that = this;
+    var songs = new Songs();
+    songs.fetch( 
+    {
+      success: function(artists) {
+        var template = _.template(App.Templates["songs/list"], { songs: songs.models });
+
+        that.$el.html(template);
+      }
+    })
+  }
+});
+
+/* **********************************************
+     Begin artist.js
+********************************************** */
+
+
+var ArtistList = Backbone.View.extend({
+  el:'.page',
+  render: function() {
+    var that = this;
+    var artists = new Artists();
+    artists.fetch( 
+    {
+      success: function(artists) {
+        var template = _.template(App.Templates["artists/list"], {artists: artists.models });
+
+        that.$el.html(template);
+      }
+    })
+  }
+});
+
+var ArtistView = Backbone.View.extend({
+  el:'.page',
+
+  render: function() {
+    var that = this;
+    this.model.fetch({
+      success: function(artist) {
+        var that2 = that;
+        var songs = artist.get("songs");
+        songs.url = artist.url() + "/songs";
+        songs.fetch({
+          success: function(songs) {
+            var template = _.template(App.Templates["artists/show"], {artist: artist, songs: songs.models});
+
+            that2.$el.html(template);
+          }
+        });
+      }
+    });
+  }
+});
+
+
+var SignupForm = Backbone.View.extend( {
+  el:'.page',
+  render: function() {
+    var template = App.Templates['artists/signup-form'];
+    this.$el.html(template);
+  },
+  events: {
+    'submit .signup-form': 'saveArtist'
+  },
+
+  saveArtist: function(ev) {
+    var artistDetails = $(ev.currentTarget).serializeObject();
+    var artist = new Artist();
+    artist.save(artistDetails, {
+      success: function(artist) {
+        router.navigate('', {trigger: true});
+      }
+    })
+    return false;
+  }
+})
+
+/* **********************************************
+     Begin static.js
+********************************************** */
+
+var Landing = Backbone.View.extend({
+  el:'.page',
+  render: function() {    
+    var template = App.Templates['static_pages/landing'];
+    this.$el.html(template);
+  }
+});
+
+var About = Backbone.View.extend({
+  el:'.page',
+  render: function() {    
+    var template = App.Templates["static_pages/about"];
+    this.$el.html(template);
+  }
+});
+
+/* **********************************************
+     Begin session.js
+********************************************** */
+
+
+var LoginForm = Backbone.View.extend( {
+  el:'.page',
+  render: function() {
+    var template = App.Templates['sessions/login'](App.currentUser);
+    this.$el.html(template);
+  },
+  events: {
+    'submit .login-form': 'signInArtist'
+  },
+
+  signInArtist: function(ev) {
+    var loginDetails = $(ev.currentTarget).serializeObject();
+    $.ajax({
+      url:'api/index.php/login',
+      type:'POST',
+      dataType:'json',
+      data: loginDetails,
+      success:function(data) {
+        App.Flash.success("You are now logged in!");
+        App.currentArtist.set(data);
+        nav.render();
+        router.navigate('', {trigger: true});
+      },
+      error: function() {
+        App.Flash.error("Invalid email or password");
+      }
+    });
+    return false;
+  }
+});
+
+/* **********************************************
      Begin helpers.js
 ********************************************** */
 
@@ -282,7 +464,33 @@ var uploadManager = new Backbone.UploadManager({
 // @codekit-prepend "../templates/player/small.js"
 // @codekit-prepend "../templates/artists/show.js"
 // @codekit-prepend "../templates/songs/upload-form.js"
+// @codekit-prepend "models/song.js"
+// @codekit-prepend "models/artist.js"
+// @codekit-prepend "views/song.js"
+// @codekit-prepend "views/artist.js"
+// @codekit-prepend "views/static.js"
+// @codekit-prepend "views/session.js"
 // @codekit-prepend "helpers.js"
+
+function transitionSong(shouldPlay, direction) {
+  shouldPlay = typeof shouldPlay !== 'undefined' ? shouldPlay : true;
+  direction = typeof direction !== 'undefined' ? direction : 'forward';
+
+  App.currentSound.stop();
+
+  if(direction == "forward") {
+    App.currentIndex = (App.currentIndex+1) % App.currentList.length
+  } else if (direction == "backward") {
+    App.currentIndex = App.currentIndex==0 ? App.currentList.length -1 : App.currentIndex - 1;    
+  }
+  App.currentSong = App.currentList[App.currentIndex];
+  App.currentSound = soundManager.createSound({
+    url: App.currentSong.track_url,
+    autoPlay: shouldPlay,
+    onfinish: transitionSong
+ });
+  player.swapArtist();
+}
 
 function isSignedIn() {
 	$.ajax("api/index.php/logged_in", {
@@ -307,7 +515,8 @@ function grabSongs() {
        App.currentSong = App.currentList[0];
        App.currentSound = soundManager.createSound({
         url: App.currentSong.track_url,
-        autoPlay: false
+        autoPlay: false,
+        onfinish: transitionSong
        });
 
        player.render();
@@ -355,160 +564,12 @@ App.Flash = {
 	}
 };
 
-var Song = Backbone.Model.extend({
-  urlRoot: 'api/index.php/songs',
-});
-
-var Songs = Backbone.Collection.extend({
-  url: "api/index.php/songs",
-});
-
-var SongList = Backbone.View.extend({
-
-  
-  render: function(javascripts) {
-    var that = this;
-    var songs = new Songs();
-    songs.fetch( 
-    {
-      success: function(artists) {
-        var template = _.template(App.Templates["songs/list"], { songs: songs.models });
-
-        that.$el.html(template);
-      }
-    })
-  }
-});
-
-
-var Artist = Backbone.Model.extend({
-
-  initialize: function() {
-    this.urlRoot = "api/index.php/artists"
-    var songs = new Songs();
-    this.set("songs", songs);
-  },
-
-  isSignedIn: function() {
-    return this.id == App.currentArtist.id && !this.isNew();
-  }
-
-});
 
 //Sets the current artist to be blank so you can easily assign it later
 App.currentArtist = new Artist;
 App.currentList = null;
 
-var Artists = Backbone.Collection.extend({
-  url: 'api/index.php/artists'
-});
 
-var ArtistList = Backbone.View.extend({
-  el:'.page',
-  render: function() {
-    var that = this;
-    var artists = new Artists();
-    artists.fetch( 
-    {
-      success: function(artists) {
-        var template = _.template(App.Templates["artists/list"], {artists: artists.models });
-
-        that.$el.html(template);
-      }
-    })
-  }
-});
-
-var ArtistView = Backbone.View.extend({
-  el:'.page',
-
-  render: function() {
-    var that = this;
-    this.model.fetch({
-      success: function(artist) {
-        var that2 = that;
-        var songs = artist.get("songs");
-        songs.url = artist.url() + "/songs";
-        songs.fetch({
-          success: function(songs) {
-            var template = _.template(App.Templates["artists/show"], {artist: artist, songs: songs.models});
-
-            that2.$el.html(template);
-          }
-        });
-      }
-    });
-  }
-});
-
-var Landing = Backbone.View.extend({
-  el:'.page',
-  render: function() {    
-    var template = App.Templates['static_pages/landing'];
-    this.$el.html(template);
-  }
-});
-
-var About = Backbone.View.extend({
-  el:'.page',
-  render: function() {    
-    var template = App.Templates["static_pages/about"];
-    this.$el.html(template);
-  }
-});
-
-var SignupForm = Backbone.View.extend( {
-  el:'.page',
-  render: function() {
-    var template = App.Templates['artists/signup-form'];
-    this.$el.html(template);
-  },
-  events: {
-    'submit .signup-form': 'saveArtist'
-  },
-
-  saveArtist: function(ev) {
-    var artistDetails = $(ev.currentTarget).serializeObject();
-    var artist = new Artist();
-    artist.save(artistDetails, {
-      success: function(artist) {
-        router.navigate('', {trigger: true});
-      }
-    })
-    return false;
-  }
-})
-
-var LoginForm = Backbone.View.extend( {
-  el:'.page',
-  render: function() {
-    var template = App.Templates['sessions/login'](App.currentUser);
-    this.$el.html(template);
-  },
-  events: {
-    'submit .login-form': 'signInArtist'
-  },
-
-  signInArtist: function(ev) {
-    var loginDetails = $(ev.currentTarget).serializeObject();
-    $.ajax({
-      url:'api/index.php/login',
-      type:'POST',
-      dataType:'json',
-      data: loginDetails,
-      success:function(data) {
-        App.Flash.success("You are now logged in!");
-        App.currentArtist.set(data);
-        nav.render();
-        router.navigate('', {trigger: true});
-      },
-      error: function() {
-        App.Flash.error("Invalid email or password");
-      }
-    });
-    return false;
-  }
-});
 
 var Player = Backbone.View.extend({
   el: $('.player'),
@@ -534,28 +595,13 @@ var Player = Backbone.View.extend({
   rewind: function(ev) {
     //if it's currently paused, we shouldn't play the next song automatically
     var shouldPlay = App.currentSound.playState == 1 && !App.currentSound.paused
-
-    App.currentSound.stop();
-    App.currentIndex = App.currentIndex==0 ? App.currentList.length -1 : App.currentIndex - 1;
-    App.currentSong = App.currentList[App.currentIndex];
-    App.currentSound = soundManager.createSound({
-      url: App.currentSong.track_url,
-      autoPlay: shouldPlay
-   });
-    this.swapArtist();
+    transitionSong(shouldPlay, "backward");
   },
   fastforward: function(ev) {
     //if it's currently paused, we shouldn't play the next song automatically
     var shouldPlay = App.currentSound.playState == 1 && !App.currentSound.paused
 
-    App.currentSound.stop();
-    App.currentIndex = (App.currentIndex+1) % App.currentList.length
-    App.currentSong = App.currentList[App.currentIndex];
-    App.currentSound = soundManager.createSound({
-      url: App.currentSong.track_url,
-      autoPlay: shouldPlay
-   });
-    this.swapArtist();
+    transitionSong(shouldPlay, "forward");
   },
 
   render: function() {    
