@@ -81,9 +81,9 @@ $app->post("/songs/upload", function() use ($app, $db) {
       'type' => $_FILES["files"]['type'][0],
       'error' => $_FILES["files"]['error'][0]
   );
-
-  $root_path = "../assets/sounds/" . $_POST['artist_id'] . "/";
-  $file_path = $root_path . $file["name"];
+  $base_path = "/home/designer/html/cloud_song/";
+  $root_path = "assets/sounds/" . $_POST['artist_id'] . "/";
+  $file_path = $base_path . $root_path . $file["name"];
 
   $append_file = is_file($file_path) && $file['size'] > filesize($file_path);
 
@@ -106,7 +106,7 @@ $app->post("/songs/upload", function() use ($app, $db) {
 
   $song = array(
       "title" => $_POST["title"],
-      "track_url" => $file_path,
+      "track_url" => $root_path . $file["name"],
       "artist_id" => $_POST["artist_id"]
     );
 

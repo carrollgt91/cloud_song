@@ -16,7 +16,26 @@ var ArtistList = Backbone.View.extend({
 });
 
 var ArtistView = Backbone.View.extend({
-  el:'.page',
+  el:'.artist-wrap',
+
+  initialize: function() {
+    dispatcher.on("CloseView", this.close, this);
+  },
+
+  events: {
+    'click .title': 'playSong'
+  },
+
+  playSong: function(ev) {
+    var list = this.model.get("songs").models;
+    var index = parseInt(ev.currentTarget.id);
+    if(list != App.currentList) {
+      changeCurrentList(list, index);    
+    } else {
+      changeCurrentSong(list[index]);
+    }
+    return false;
+  },
 
   render: function() {
     var that = this;
@@ -27,16 +46,25 @@ var ArtistView = Backbone.View.extend({
         songs.url = artist.url() + "/songs";
         songs.fetch({
           success: function(songs) {
-            var template = _.template(App.Templates["artists/show"], {artist: artist, songs: songs.models});
+            that2.model.set({"songs": songs});
+            var template = _.template(App.Templates["artists/show"], {artist: that2.model, songs: songs.models});
 
             that2.$el.html(template);
           }
         });
       }
     });
+  },
+
+  close: function() {
+    // Unregister for event to stop memory leak
+    console.log("closing down");
+    dispatcher.off( 'CloseView', this.close, this );
+    this.remove();
+    this.unbind();
+    this.views = [];   // Clear the view array
   }
 });
-
 
 var SignupForm = Backbone.View.extend( {
   el:'.page',

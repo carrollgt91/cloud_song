@@ -11,16 +11,14 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/templates\/application\/nav.js" : {
+    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 1,
+      "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/templates\/application\/nav.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/templates\/application\/nav-ck.js",
-      "fileType" : 64
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
     },
     "\/javascripts\/vendor\/zepto.js" : {
       "ignoreWasSetByUser" : 1,
@@ -33,14 +31,16 @@
       "outputAbbreviatedPath" : "\/javascripts\/vendor\/zepto-ck.js",
       "fileType" : 64
     },
-    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/PrettyExceptions.php" : {
+    "\/templates\/application\/nav.js" : {
       "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
+      "ignore" : 1,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/PrettyExceptions.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
+      "inputAbbreviatedPath" : "\/templates\/application\/nav.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/templates\/application\/nav-ck.js",
+      "fileType" : 64
     },
     "\/javascripts\/foundation\/foundation.interchange.js" : {
       "ignoreWasSetByUser" : 1,
@@ -62,12 +62,12 @@
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
-    "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php" : {
+    "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/PrettyExceptions.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Http\/Response.php",
+      "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/Slim\/Middleware\/PrettyExceptions.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -483,17 +483,6 @@
       "outputAbbreviatedPath" : "\/templates\/artists\/show-ck.js",
       "fileType" : 64
     },
-    "\/javascripts\/app.js" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/javascripts\/app.js",
-      "outputStyle" : 0,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/javascripts\/app-ck.js",
-      "fileType" : 64
-    },
     "\/javascripts\/views\/session.js" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -503,6 +492,17 @@
       "outputStyle" : 1,
       "syntaxCheckerStyle" : 0,
       "outputAbbreviatedPath" : "\/javascripts\/views\/session-ck.js",
+      "fileType" : 64
+    },
+    "\/javascripts\/app.js" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/javascripts\/app.js",
+      "outputStyle" : 0,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/javascripts\/app-ck.js",
       "fileType" : 64
     },
     "\/templates\/static_pages\/about.js" : {
@@ -538,21 +538,21 @@
       "outputAbbreviatedPath" : "\/javascripts\/libs\/noty\/layouts\/topRight-ck.js",
       "fileType" : 64
     },
-    "\/api\/NotORM\/MultiResult.php" : {
-      "ignoreWasSetByUser" : 0,
-      "ignore" : 0,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/api\/NotORM\/MultiResult.php",
-      "outputAbbreviatedPath" : "No Output Path",
-      "fileType" : 2048
-    },
     "\/api\/vendor\/slim\/slim\/tests\/Middleware\/FlashTest.php" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 0,
       "hidden" : 0,
       "outputPathIsSetByUser" : 0,
       "inputAbbreviatedPath" : "\/api\/vendor\/slim\/slim\/tests\/Middleware\/FlashTest.php",
+      "outputAbbreviatedPath" : "No Output Path",
+      "fileType" : 2048
+    },
+    "\/api\/NotORM\/MultiResult.php" : {
+      "ignoreWasSetByUser" : 0,
+      "ignore" : 0,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/api\/NotORM\/MultiResult.php",
       "outputAbbreviatedPath" : "No Output Path",
       "fileType" : 2048
     },
@@ -1065,17 +1065,6 @@
       "outputAbbreviatedPath" : "\/templates\/player\/small-ck.js",
       "fileType" : 64
     },
-    "\/javascripts\/foundation\/foundation.forms.js" : {
-      "ignoreWasSetByUser" : 1,
-      "ignore" : 1,
-      "hidden" : 0,
-      "outputPathIsSetByUser" : 0,
-      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms.js",
-      "outputStyle" : 1,
-      "syntaxCheckerStyle" : 0,
-      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms-ck.js",
-      "fileType" : 64
-    },
     "\/sass\/_settings.scss" : {
       "ignoreWasSetByUser" : 0,
       "ignore" : 1,
@@ -1087,6 +1076,17 @@
       "outputAbbreviatedPath" : "\/stylesheets\/_settings.css",
       "fileType" : 4,
       "debugStyle" : 0
+    },
+    "\/javascripts\/foundation\/foundation.forms.js" : {
+      "ignoreWasSetByUser" : 1,
+      "ignore" : 1,
+      "hidden" : 0,
+      "outputPathIsSetByUser" : 0,
+      "inputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms.js",
+      "outputStyle" : 1,
+      "syntaxCheckerStyle" : 0,
+      "outputAbbreviatedPath" : "\/javascripts\/foundation\/foundation.forms-ck.js",
+      "fileType" : 64
     },
     "\/api\/NotORM\/Literal.php" : {
       "ignoreWasSetByUser" : 0,

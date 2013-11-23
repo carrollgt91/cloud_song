@@ -193,8 +193,8 @@ App.Templates['artists/show'] ='\
   <% _.each(songs, function(song) { %>\
 \
   <div class="song columns large-12">\
-    <h4 class="name">\
-      <%= song.get("title") %>\
+    <h4 class="title" id="<%=songs.indexOf(song)%>">\
+      <a href=""><%= song.get("title") %></a>\
     </h4>\
   </div>\
   <% }); %>\
@@ -306,7 +306,26 @@ var ArtistList = Backbone.View.extend({
 });
 
 var ArtistView = Backbone.View.extend({
-  el:'.page',
+  el:'.artist-wrap',
+
+  initialize: function() {
+    dispatcher.on("CloseView", this.close, this);
+  },
+
+  events: {
+    'click .title': 'playSong'
+  },
+
+  playSong: function(ev) {
+    var list = this.model.get("songs").models;
+    var index = parseInt(ev.currentTarget.id);
+    if(list != App.currentList) {
+      changeCurrentList(list, index);    
+    } else {
+      changeCurrentSong(list[index]);
+    }
+    return false;
+  },
 
   render: function() {
     var that = this;
@@ -317,16 +336,25 @@ var ArtistView = Backbone.View.extend({
         songs.url = artist.url() + "/songs";
         songs.fetch({
           success: function(songs) {
-            var template = _.template(App.Templates["artists/show"], {artist: artist, songs: songs.models});
+            that2.model.set({"songs": songs});
+            var template = _.template(App.Templates["artists/show"], {artist: that2.model, songs: songs.models});
 
             that2.$el.html(template);
           }
         });
       }
     });
+  },
+
+  close: function() {
+    // Unregister for event to stop memory leak
+    console.log("closing down");
+    dispatcher.off( 'CloseView', this.close, this );
+    this.remove();
+    this.unbind();
+    this.views = [];   // Clear the view array
   }
 });
-
 
 var SignupForm = Backbone.View.extend( {
   el:'.page',
@@ -441,14 +469,32 @@ $.fn.serializeObject = function() {
   return o;
 };
 
+Backbone.Router.prototype.before = function () {};
+Backbone.Router.prototype.after = function () {};
 
-var uploadManager = new Backbone.UploadManager({
-    'uploadUrl': '/cloud_song/api/index.php/songs/upload',
-    'templates': {
-        'main': 'upload_manager/upload-manager.main',
-        'file': 'upload_manager/upload-manager.file'
-    }
-});
+Backbone.Router.prototype.route = function (route, name, callback) {
+  if (!_.isRegExp(route)) route = this._routeToRegExp(route);
+  if (_.isFunction(name)) {
+    callback = name;
+    name = '';
+  }
+  if (!callback) callback = this[name];
+
+  var router = this;
+
+  Backbone.history.route(route, function(fragment) {
+    var args = router._extractParameters(route, fragment);
+
+    router.before.apply(router, arguments);
+    callback && callback.apply(router, args);
+    router.after.apply(router, arguments);
+
+    router.trigger.apply(router, ['route:' + name].concat(args));
+    router.trigger('route', name, args);
+    Backbone.history.trigger('route', router, name, args);
+  });
+  return this;
+};
 
 /* **********************************************
      Begin app.js
@@ -472,6 +518,8 @@ var uploadManager = new Backbone.UploadManager({
 // @codekit-prepend "views/session.js"
 // @codekit-prepend "helpers.js"
 
+var dispatcher = _.clone(Backbone.Events);
+
 function transitionSong(shouldPlay, direction) {
   shouldPlay = typeof shouldPlay !== 'undefined' ? shouldPlay : true;
   direction = typeof direction !== 'undefined' ? direction : 'forward';
@@ -485,7 +533,7 @@ function transitionSong(shouldPlay, direction) {
   }
   App.currentSong = App.currentList[App.currentIndex];
   App.currentSound = soundManager.createSound({
-    url: App.currentSong.track_url,
+    url: App.currentSong.get("track_url"),
     autoPlay: shouldPlay,
     onfinish: transitionSong
  });
@@ -505,22 +553,59 @@ function isSignedIn() {
 	});
 }
 
+function changeCurrentList(list, index) {
+  App.currentList = list;
+  App.currentIndex = index;
+  App.currentSong = App.currentList[index];
+  App.currentSound.stop();
+  App.currentSound = soundManager.createSound({
+    url: App.currentSong.get("track_url"),
+    autoPlay: false,
+    onfinish: transitionSong
+  });
+  player.swapArtist();
+  player.play();
+}
+
+function changeCurrentSong(song) {
+  App.currentSong = song;
+  App.currentSound.stop();
+  App.currentSound = soundManager.createSound({
+    url: App.currentSong.get("track_url"),
+    autoPlay: false,
+    onfinish: transitionSong
+  });
+  player.swapArtist();
+  player.play();
+}
+
 function grabSongs() {
   $.ajax("api/index.php/artists/5/songs", {
     type: "GET",
      dataType: "json",
      success: function(data) {
-       App.currentList = data;
-       App.currentIndex = 0;
-       App.currentSong = App.currentList[0];
-       App.currentSound = soundManager.createSound({
-        url: App.currentSong.track_url,
-        autoPlay: false,
-        onfinish: transitionSong
-       });
-
-       player.render();
-     },
+        var artist = new Artist({"id":5});
+        artist.fetch({
+          success: function(artist) {
+            artist.songs = new Songs();
+            var songs = artist.get("songs");
+            songs.url = artist.url() + "/songs";
+            songs.fetch({
+              success: function(songs) {
+                App.currentList = songs.models;
+                App.currentIndex = 0;
+                App.currentSong = App.currentList[0];
+                App.currentSound = soundManager.createSound({
+                 url: App.currentSong.get("track_url"),
+                 autoPlay: false,
+                 onfinish: transitionSong
+                });
+                player.render();
+                player.swapArtist();
+              }
+            });
+          }
+        });     },
      error: function() {
        return false;
      }
@@ -564,12 +649,9 @@ App.Flash = {
 	}
 };
 
-
 //Sets the current artist to be blank so you can easily assign it later
 App.currentArtist = new Artist;
 App.currentList = null;
-
-
 
 var Player = Backbone.View.extend({
   el: $('.player'),
@@ -581,7 +663,7 @@ var Player = Backbone.View.extend({
   },
 
   swapArtist: function() {
-    $(".player>li>.song").html(App.currentSong.artist + " - " + App.currentSong.title);
+    $(".player>li>.song").html(App.currentSong.get("artist") + " - " + App.currentSong.get("title"));
   },
 
   play: function(ev) {
@@ -615,23 +697,24 @@ var Upload = Backbone.View.extend( {
   render: function() {
     var template = _.template(App.Templates['songs/upload-form'], {artist:App.currentArtist});
     this.$el.html(template);
+    var uploadManager = new Backbone.UploadManager({
+        'uploadUrl': 'api/index.php/songs/upload',
+        'templates': {
+            'main': 'upload-manager.main',
+            'file': 'upload-manager.file'
+        }
+    });
     uploadManager.renderTo($('#upload-manager'));
+    uploadManager.on("filedone", function() {
+      router.navigate('explore', {trigger: true});
+      App.Flash.success("Song successfully uploaded.");
+    });
   },
   events: {
     'submit .upload-form': 'saveSong'
   },
 
   saveSong: function(ev) {
-    var songDetails = $(ev.currentTarget).serializeObject();
-    var song = new Song();
-
-
-
-    song.save(songDetails, {
-      success: function(song) {
-        router.navigate('artist/' + App.currentArtist.id, {trigger: true});
-      }
-    })
     return false;
   }
 })
@@ -675,6 +758,9 @@ var Router = Backbone.Router.extend({
     'about': 'about',
     'login': 'login',
     'upload': 'upload',
+  },
+  before: function() {
+    dispatcher.trigger("CloseView");
   }
 });
 
@@ -719,6 +805,9 @@ router.on('route:upload', function() {
 });
 
 router.on('route:showArtist', function(id) {
+  var $artistEl = $('<div class="artist-wrap"/>');
+  $(".page").empty();
+  $(".page").append($artistEl);
   var artist = new Artist({id:id});
   var view = new ArtistView({model:artist})
   view.render();

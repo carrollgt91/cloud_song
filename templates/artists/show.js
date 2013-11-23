@@ -4,8 +4,8 @@ App.Templates['artists/show'] ='\
   <% _.each(songs, function(song) { %>\
 \
   <div class="song columns large-12">\
-    <h4 class="name">\
-      <%= song.get("title") %>\
+    <h4 class="title" id="<%=songs.indexOf(song)%>">\
+      <a href=""><%= song.get("title") %></a>\
     </h4>\
   </div>\
   <% }); %>\
