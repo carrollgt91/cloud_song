@@ -7,7 +7,7 @@ require 'NotORM.php';
 
 session_start();
 
-$pdo = new PDO("mysql:dbname=cloudsong", 'root', 'rootPassword');
+$pdo = new PDO("mysql:dbname=cloudsong", 'root', 'root');
 $db = new NotORM($pdo);
 
 $app = new \Slim\Slim(array (
@@ -52,10 +52,11 @@ $app->get("/artists/:id", function($id) use ($app, $db) {
 $app->get("/artists/:id/songs", function($id) use ($app, $db) {
   $dbsongs = $db->song()
     ->where("artist_id = ?", $id);
+  $artist = $db->artist[$id];
 
   $songs = array();
   foreach ($dbsongs as $song) {
-    $artist = $db->artist[$song["artist_id"]];
+    
     $name = $artist["name"];
     $songs[] = array(
       "id" => $song["id"],
@@ -69,11 +70,32 @@ $app->get("/artists/:id/songs", function($id) use ($app, $db) {
   echo json_encode($songs);
 });
 
+$app->get("/artists/:id/lists", function($id) use ($app, $db) {
+  $lists = $db->list()
+    ->where("artist_id = ?", $id);
+
+  $artist = $db->artist[$id];
+
+  $lists = array();
+  foreach ($dblists as $list) {
+    
+    $name = $artist["name"];
+    $lists[] = array(
+      "id" => $list["id"],
+      "title" => $list["title"],
+      "artist" => $name
+    );
+  }
+
+  $app->response()->header("Content-Type", "application/json");
+  echo json_encode($lists);
+});
+
 $app->post("/songs/upload", function() use ($app, $db) {
   $app->response()->header("Content-Type", "application/json");
   $body = $app->request()->getBody();
   $converted_song = json_decode($body, true);
-
+  print_r($_FILES);
   $file = array(
       'tmp_name' => $_FILES["files"]['tmp_name'][0],
       'name' => $_FILES["files"]['name'][0],
@@ -152,6 +174,66 @@ $app->get("/logged_in", function() use ($app) {
 
 $app->get("/logout", function() use ($app) { 
   $_SESSION["user"] = NULL;
+});
+
+$app->get("/lists/:id", function($id) use ($app, $db, $pdo) {
+  $dbl = $db->list[$id];
+  $list = array(
+    "id" => $dbl["id"],
+    "title" => $dbl["title"],
+    "artist_id" => $dbl["artist_id"]
+  );
+
+  $songs = array();
+  //Used to efficiently query the song table
+  $song_ids = ""; 
+  //Loop over each row in the relationship table where the list_song.list_id = current_list.id
+  foreach ($dbl->list_song() as $list_song) { 
+    //constructs the string for the query to get songs
+    $song_ids = $song_ids . "'" . $list_song["song_id"] . "',";
+  }
+  $song_ids = chop($song_ids, ","); //Remove last comma
+  //get the songs from the database
+  $query = "SELECT * FROM song WHERE id IN (" . $song_ids . ");";
+  $dbsongs = $pdo->query($query);
+
+  //Used to efficiently get the artists for the songs of the list
+  $artist_ids = ""; 
+  //For each song, serialize it and construct the string for the artist query
+  foreach ($dbsongs as $song) {
+    $artist_ids = $artist_ids . "'" . $song["artist_id"] . "',";
+    $songs[] = array(
+      "id" => $song["id"],
+      "title" => $song["title"],
+      "artist_id" => $song["artist_id"],
+      "track_url" => $song["track_url"]
+    );
+  }
+
+  $artist_ids = chop($artist_ids, ",");
+
+  //this query grabs the name and id for each artist in the list
+  $query = "SELECT id,name FROM artist WHERE id IN (" . $artist_ids . ");";
+  $dbartists = $pdo->query($query);
+
+  //an array where the keys are the ids and the values are php arrays with valid artist records
+  $artist_map = array(); 
+
+  //creates a map so we can easily handle the relationship
+  foreach ($dbartists as $artist) {
+    $art = array(
+      "id" => $artist["id"],
+      "name" => $artist["name"]
+    );
+    $artist_map[$artist["id"]] = $art;
+  }
+  //adds the artist name to the songs so we can correctly display it on the front end
+  foreach ($songs as &$song) {
+    $song["artist"] = $artist_map[$song["artist_id"]]["name"];
+  }
+
+  $app->response()->header("Content-Type", "application/json");
+  echo json_encode($songs);
 });
 
 //login

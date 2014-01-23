@@ -190,7 +190,7 @@ var Player = Backbone.View.extend({
   }
 });
 
-var Upload = Backbone.View.extend( {
+var Upload = Backbone.View.extend({
   el:'.page',
   render: function() {
     var template = _.template(App.Templates['songs/upload-form'], {artist:App.currentArtist});
@@ -215,7 +215,7 @@ var Upload = Backbone.View.extend( {
   saveSong: function(ev) {
     return false;
   }
-})
+});
 
 var Nav = Backbone.View.extend({
   el: $('.right'),
